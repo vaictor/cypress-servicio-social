@@ -1,0 +1,16 @@
+{
+    "chromeWebSecurity": false,
+    "viewportWidth": 1024,
+    "viewportHeight": 768,
+    "env": {
+      "devUrl": "urldev",
+      "testUrl": "urltest",
+      "prodUrl": "urlprod",
+      "usrProfesor": "dummyusr",
+      "pwdProfesor": "dummypwd",
+      "usrAlumno": "dummyusr",
+      "pwdAlumno": "dummyusr",
+      "usrSoporte": "dummyusr",
+      "pwdSoporte": "dummyusr"
+    }
+  }
