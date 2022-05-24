@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add("iniciarSesionDev", () => { 
     cy.visit(Cypress.env('devUrl')) 
-    
+    cy.wait(500)
     cy.get('#uCorreo')
         .type(Cypress.env('usrProfesor'));
 
@@ -38,7 +38,7 @@ Cypress.Commands.add("iniciarSesionDev", () => {
 
   Cypress.Commands.add("iniciarSesionPruebas", () => { 
     cy.visit(Cypress.env('testUrl'))
-    //cy.wait(500)
+    cy.wait(500)
     cy.get('#btn-login').click()
     cy.get(':nth-child(5) > p > input').click()
   });

@@ -15,11 +15,3 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-// now any cookie with the name 'session_id' will
-// not be cleared before each test runs
-Cypress.Cookies.defaults({
-    preserve: 'session_id',
-  })
