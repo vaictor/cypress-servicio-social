@@ -16,7 +16,7 @@ describe('Pruebas del alumno de la plataforma educ', () => {
         cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image')
         .click()
 
-        cy.visit('http://deveduc.ddns.net:88/alumno/infogral/index_admon.php')
+        cy.visit('http://deveduc.ddns.net:88/alumno/infogral/')
         
     })
 
