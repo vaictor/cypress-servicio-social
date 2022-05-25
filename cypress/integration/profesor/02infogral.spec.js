@@ -12,7 +12,7 @@ describe('Profesor en educ', () => {
 
     it('Profesor: Nuevo texto / Información general', () => {
 
-        cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image')
+        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')

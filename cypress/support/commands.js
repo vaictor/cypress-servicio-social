@@ -24,13 +24,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 Cypress.Commands.add("iniciarSesionDev", () => { 
-    cy.visit(Cypress.env('devUrl')) 
+    cy.visit('http://deveduc.ddns.net:88/index.demo')
     cy.wait(500)
     cy.get('#uCorreo')
-        .type(Cypress.env('usrProfesor'));
+        .type('vmedina@ucol.mx');
 
     cy.get('#uClave')
-        .type(Cypress.env('pwdProfesor'));
+        .type('3qu1p03duc');
 
     cy.get('.btn-wayf')
         .click();
