@@ -12,7 +12,7 @@ describe('Profesor en educ', () => {
 
     it('Profesor: Nuevo texto / Información general', () => {
 
-        cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image')
+        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')
@@ -56,23 +56,40 @@ describe('Profesor en educ', () => {
     })
 
 
-    it('Profesor: Nuevo adjunto / Información general', () => {
+    it.only('Profesor: Nuevo adjunto / Información general', () => {
 
 
-        cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image')
+        cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')
+
+        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')
 
-        
         cy.get('#dropdownInfogral')
         .click()
+        
 
         cy.get('#dropdownInfogralAdjunto')
         .click()
 
+        cy.get('#inputInfogralAdjuntoArchivo')
+        .attachFile("app_icon.png")
         
-        
+        cy.get('#inputInfogralAdjuntoNombre')
+        .type("Nombre test")
+        .should('have.value','Nombre test')
+
+        cy.get('#inputInfogralAdjuntoDescripcion')
+        .type("Adjunto test descripción")
+        .should('have.value','Adjunto test descripción')
+
+
+        cy.get('#selectInfogralAdjuntoDestino').select('Sin carpeta')
+       
+
+        cy.get('#btnInfogralAdjuntoGuardar')
+        .click() 
     })
 
   })
