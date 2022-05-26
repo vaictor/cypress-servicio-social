@@ -56,7 +56,7 @@ describe("Profesor en educ", () => {
     cy.get("#dropdownInfogralAdjunto").click();
   });
 
-  it.only("Profesor: Nueva carpeta / Información general", () => {
+  it("Profesor: Nueva carpeta / Información general", () => {
     const nuevaCarpetaNombre = "Nueva carpeta desde Cypress";
     const nuevaCarpetaDescripcion =
       "Descripcion de la nueva carpeta desde Cypress";
