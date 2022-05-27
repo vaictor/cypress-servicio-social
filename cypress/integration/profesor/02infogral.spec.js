@@ -64,8 +64,8 @@ describe("Profesor en educ", () => {
     cy.get(
       ":nth-child(9) > .row > :nth-child(2) > .card > .course-image"
     ).click();
-
-    cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
+    
+    it.only('Profesor: Nuevo adjunto / Información general', () => {
 
     cy.get("#dropdownInfogral").click();
 
@@ -83,7 +83,24 @@ describe("Profesor en educ", () => {
       .select("Sin carpeta")
       .should("have.value", 0);
 
-    cy.get("#btnInfogralGuardarNuevaCarpeta").click();
+        cy.get('#inputInfogralAdjuntoArchivo')
+        .attachFile("app_icon.png")
+        
+        cy.get('#inputInfogralAdjuntoNombre')
+        .type("Nombre test")
+        .should('have.value','Nombre test')
+
+        cy.get('#inputInfogralAdjuntoDescripcion')
+        .type("Adjunto test descripción")
+        .should('have.value','Adjunto test descripción')
+
+
+        cy.get('#selectInfogralAdjuntoDestino').select('Sin carpeta')
+       
+
+        cy.get('#btnInfogralAdjuntoGuardar')
+        .click() 
+    })
 
     cy.get(".border > .media > .media-body > .media-heading").should(
       "have.text",
