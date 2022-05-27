@@ -13,7 +13,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
         cy.iniciarSesionDev()   
 
-        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
+        cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -42,15 +42,18 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     })
 
     // Caso de prueba para Anuncios del profesor
-    it.only('Profesor: Anuncios en educ / Encontrar un elemento', () => {
-        cy.iniciarSesionDev()   
+    it.only('Profesor: Anuncios en educ / Eliminar un elemento', () => {
 
-        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
+        cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
 
-        cy.get('#btnAnunciosEliminar31659')
+        cy.get(".anuncio")
+        .contains('prueba')
+        .should('exist')
+
+        cy.get('#btnAnunciosEliminar31711')
         .click()
 
         cy.wait(500)
@@ -59,7 +62,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         .click()
 
         cy.get(".anuncio")
-        .contains('Prueba')
+        .contains('prueba')
         .should('exist')
         
         console.log('Termina de comprobar que el elemento se haya eliminado')
