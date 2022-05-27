@@ -1,78 +1,93 @@
 // Caso de prueba para infogral educ
-describe('Profesor en educ', () => {
- 
-    before(() => {
+describe("Profesor en educ", () => {
+  before(() => {});
 
-    })
+  beforeEach(() => {
+    console.log("Iniciar sesión");
+    cy.iniciarSesionDev();
+  });
 
-    beforeEach(() => {
-        console.log("Iniciar sesión")
-        cy.iniciarSesionDev();
-    })
+  it("Profesor: Nuevo texto / Información general", () => {
+    cy.get(
+      ":nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image"
+    ).click();
 
-    it('Profesor: Nuevo texto / Información general', () => {
+    cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
-        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
-        .click()
+    cy.get("#dropdownInfogral").click();
 
-        cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')
+    cy.get("#dropdownInfogralTexto").click();
 
-        cy.get('#dropdownInfogral')
-        .click()
+    cy.get("#titulo")
+      .type("Horario de clase")
+      .should("have.value", "Horario de clase");
 
-        cy.get('#dropdownInfogralTexto')
-        .click()
+    cy.get(":nth-child(2) > .form-control")
+      .type("presencial")
+      .should("have.value", "presencial");
 
-        cy.get('#titulo')
-        .type("Horario de clase")
-        .should('have.value','Horario de clase')
+    cy.get("iframe.cke_wysiwyg_frame").then(function ($iframe) {
+      const $body = $iframe.contents().find("body");
+      //console.log($body);
+      cy.wrap($body[0]).type(
+        "The JWT’s signature is a cryptographic mechanism designed to secure the JWT’s data with a digital signature unique to the contents of the token. The signature ensures the JWT’s integrity so that consumers can verify it hasn’t been tampered with by a malicious actor" +
+          "The JWT’s signature is a combination of three things:" +
+          "<ul><li>the JWT’s header</li>" +
+          "<li>the JWT’s payload</li>" +
+          "<li>a secret value</li></ul>"
+      );
+    });
 
-        cy.get(':nth-child(2) > .form-control')
-        .type("presencial")
-        .should('have.value','presencial')
+    cy.get("#envio").click();
 
-        cy.get("iframe.cke_wysiwyg_frame").then(function($iframe) {
-            const $body = $iframe.contents().find("body");
-            //console.log($body);
-            cy.wrap($body[0]).type("The JWT’s signature is a cryptographic mechanism designed to secure the JWT’s data with a digital signature unique to the contents of the token. The signature ensures the JWT’s integrity so that consumers can verify it hasn’t been tampered with by a malicious actor" +
-            "The JWT’s signature is a combination of three things:"+
-            "<ul><li>the JWT’s header</li>"+
-            "<li>the JWT’s payload</li>"+
-            "<li>a secret value</li></ul>");
-          });
+    cy.get(".archivo").contains("Horario de clase").should("exist");
+    //.should('have.value','<strong>Horario de clase</strong>')
+  });
 
-          cy.get('#envio')
-          .click()
+  it("Profesor: Nuevo adjunto / Información general", () => {
+    cy.get(
+      ":nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image"
+    ).click();
 
+    cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
-          cy.get(".archivo")
-          .contains('Horario de clase')
-          .should('exist')
-          //.should('have.value','<strong>Horario de clase</strong>')
+    cy.get("#dropdownInfogral").click();
 
+    cy.get("#dropdownInfogralAdjunto").click();
+  });
 
-         
-        
-    })
+  it("Profesor: Nueva carpeta / Información general", () => {
+    const nuevaCarpetaNombre = "Nueva carpeta desde Cypress";
+    const nuevaCarpetaDescripcion =
+      "Descripcion de la nueva carpeta desde Cypress";
 
+    cy.get(
+      ":nth-child(9) > .row > :nth-child(2) > .card > .course-image"
+    ).click();
 
-    it('Profesor: Nuevo adjunto / Información general', () => {
+    cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
+    cy.get("#dropdownInfogral").click();
 
-        cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image')
-        .click()
+    cy.get("#dropdownInfogralCarpeta").click();
 
-        cy.visit('http://deveduc.ddns.net:88/profesor/infogral/index_admon.php')
+    cy.get("#inputInfogralNuevaCarpetaNombre")
+      .type(nuevaCarpetaNombre)
+      .should("have.value", nuevaCarpetaNombre);
 
-        
-        cy.get('#dropdownInfogral')
-        .click()
+    cy.get("#inputInfogralNuevaCarpetaDescripcion")
+      .type(nuevaCarpetaDescripcion)
+      .should("have.value", nuevaCarpetaDescripcion);
 
-        cy.get('#dropdownInfogralAdjunto')
-        .click()
+    cy.get("#selectInfogralNuevaCarpetaDestino")
+      .select("Sin carpeta")
+      .should("have.value", 0);
 
-        
-        
-    })
+    cy.get("#btnInfogralGuardarNuevaCarpeta").click();
 
-  })
+    cy.get(".border > .media > .media-body > .media-heading").should(
+      "have.text",
+      nuevaCarpetaNombre
+    );
+  });
+});
