@@ -11,7 +11,6 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
 
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
-        cy.iniciarSesionDev()   
 
         cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
         .click()
@@ -27,7 +26,6 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar que no hay elementos', () =>{
-        cy.iniciarSesionDev()   
 
         cy.get(':nth-child(6) > :nth-child(2) > .col-md-6 > .card > .course-image')
         .click()

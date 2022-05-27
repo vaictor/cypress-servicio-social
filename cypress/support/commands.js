@@ -1,4 +1,4 @@
-import 'cypress-file-upload';
+//import 'cypress-file-upload';
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -43,3 +43,7 @@ Cypress.Commands.add("iniciarSesionDev", () => {
     cy.get('#btn-login').click()
     cy.get(':nth-child(5) > p > input').click()
   });
+
+  Cypress.Commands.add('getBySel', (selector, ...args) => {
+    return cy.get(`[data-test=${selector}]`, ...args)
+  })
