@@ -10,7 +10,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
 
 
     // Caso de prueba para Anuncios del profesor
-    it.only('Profesor: Anuncios en educ / Encontrar un elemento', () => {
+    it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
         cy.iniciarSesionDev()   
 
         cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
@@ -41,6 +41,28 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         console.log('Termina de comprobar que no haya elementos')
     })
 
-    
+    // Caso de prueba para Anuncios del profesor
+    it.only('Profesor: Anuncios en educ / Encontrar un elemento', () => {
+        cy.iniciarSesionDev()   
+
+        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
+        .click()
+
+        cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
+
+        cy.get('#btnAnunciosEliminar31659')
+        .click()
+
+        cy.wait(500)
+        cy.get('.swal2-confirm')
+        .should('be.visible')
+        .click()
+
+        cy.get(".anuncio")
+        .contains('Prueba')
+        .should('exist')
+        
+        console.log('Termina de comprobar que el elemento se haya eliminado')
+    })
 
   })
