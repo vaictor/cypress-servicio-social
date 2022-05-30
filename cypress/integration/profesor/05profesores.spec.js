@@ -102,6 +102,23 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         
         console.log('Termina de editar el perfil del profesor')
     })
-    
+     // Caso de prueba para perfil de profesores
+     it('Profesor: Profesor en educ / Cambiar imagen de perfil', () => {
+        
+        cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
+        .click()
+        
+        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index.php')
+
+        cy.get('#btnProfesorEditar')    
+        .click({force: true})
+
+        //da error
+        cy.get('#imagen')
+        .attachFile("app_icon.png", { subjectType: 'input' })
+
+
+
+     })
 
   })
