@@ -46,6 +46,9 @@ describe("Profesor en educ", () => {
 
   // Profesor: Nuevo adjunto / Información general
   it("Profesor: Nuevo adjunto / Información general", () => {
+    const nuevoAdjuntoNombre = "Nombre test";
+    const nuevoAdjuntoDescripcion = "Adjunto test descripción";
+
     cy.get(':nth-child(6) > .row > .col-md-6 > .card > .course-image').click();
 
     cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
@@ -58,23 +61,32 @@ describe("Profesor en educ", () => {
     .attachFile("app_icon.png")
     
     cy.get('#inputInfogralAdjuntoNombre')
-    .type("Nombre test")
-    .should('have.value','Nombre test')
+    .type(nuevoAdjuntoNombre)
+    .should('have.value',nuevoAdjuntoNombre)
 
     cy.get('#inputInfogralAdjuntoDescripcion')
-    .type("Adjunto test descripción")
-    .should('have.value','Adjunto test descripción')
+    .type(nuevoAdjuntoDescripcion)
+    .should('have.value',nuevoAdjuntoDescripcion)
 
     cy.get('#selectInfogralAdjuntoDestino').select('Sin carpeta')
    
     cy.get('#btnInfogralAdjuntoGuardar')
     .click();
 
+    cy.get('.w-100 > .media > .media-body > .media-heading > strong').should(
+      "have.text",nuevoAdjuntoNombre);
+
+    cy.get('.w-100 > .media > .media-body > p.m-0').should(
+      "have.text",nuevoAdjuntoDescripcion);
+
+    cy.get('[data-cy="linkInfogralAdjuntoVisualizar"]')
+    .click();
+
 });
 
 
 // Profesor: Nueva carpeta / Información general
-it.only("Profesor: Nueva carpeta / Información general", () => {
+it("Profesor: Nueva carpeta / Información general", () => {
     const nuevaCarpetaNombre = "Nueva carpeta desde Cypress";
     const nuevaCarpetaDescripcion =
       "Descripcion de la nueva carpeta desde Cypress";
