@@ -9,37 +9,9 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.iniciarSesionDev()
     })
 
-    //Caso de prueba para mandar correo
-    it('Profesor: Profesor en educ / Mandar correo', () => {
-
-        cy.get(':nth-child(7) > :nth-child(2) > .card > .course-image')
-        .click()
-
-        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index.php')
-
-        cy.get('#btnProfesorEnviarCorreo419')    
-        .click()
-
-        cy.get('#txtProfesorAsunto')
-        .type("Duda para Horacio desde cypress")
-
-        cy.get('#txtProfesorMensaje')
-        .type("Horacio Gerzaín Avalos Aguayo, esto es una prueba automática desde cypess")
-
-        cy.get('#btnProfesorEnviar')
-        .should('be.visible')
-        .click()
-
-        cy.wait(500)
-        cy.get('.swal2-confirm')
-        .should('be.visible')
-        .click()
-
-        console.log('Termina de mandar correo al profesor')
-    })
     
     // Caso de prueba para perfil de profesores
-    it.only('Profesor: Profesor en educ / Editar perfil', () => {
+    it('Profesor: Profesor en educ / Editar perfil', () => {
         const nombramiento = "Profesor de la UDC" 
         const Institucion = "La UDC" 
         const Resena = "Profesor que imparte clases en la UDC" 
