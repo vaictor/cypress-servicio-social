@@ -19,7 +19,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(':nth-child(7) > :nth-child(2) > .card > .course-image')
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index.php')
+        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_adomn.php')
 
         cy.get('#btnProfesorEditar')    
         .click()
@@ -79,7 +79,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(':nth-child(7) > :nth-child(2) > .card > .course-image')
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index.php')
+        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_adomn.php')
 
         cy.get('#btnProfesorEditar')    
         .click()
