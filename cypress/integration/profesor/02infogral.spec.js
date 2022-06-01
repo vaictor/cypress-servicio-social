@@ -79,7 +79,7 @@ describe("Profesor en educ", () => {
     cy.get('.w-100 > .media > .media-body > p.m-0').should(
       "have.text",nuevoAdjuntoDescripcion);
 
-    cy.get('[data-cy="linkInfogralAdjuntoVisualizar"]')
+    cy.get('[data-cy=linkInfogralAdjuntoVisualizar]')
     .click();
 
 });
@@ -120,5 +120,24 @@ it("Profesor: Nueva carpeta / Información general", () => {
 
   });
 
+  it.only("Profesor: Eliminar infogral / Información general", () => {
+    cy.get(":nth-child(6) > .row > .col-md-6 > .card > .course-image").click();
+
+    cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
+
+    cy.get(".btn-outline-danger").click();
+    
+    cy.wait(500);
+    
+    cy.get(".swal2-confirm").click();
+
+    cy.wait(1000);
+
+    cy.get("#swal2-title").should('have.text', 'Se ha eliminado el recurso');
+
+    cy.get("#swal2-title").should("have.text", "Se ha eliminado el recurso");
+
+    cy.get(".swal2-confirm").click();
+  });
 
 });
