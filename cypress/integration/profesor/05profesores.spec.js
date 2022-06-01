@@ -8,7 +8,8 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         console.log("Iniciar sesión")
         cy.iniciarSesionDev()
     })
-
+    
+    const ruta = ":nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image"
     
     // Caso de prueba para perfil de profesores
     it('Profesor: Profesor en educ / Editar perfil', () => {
@@ -16,7 +17,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         const Institucion = "La UDC" 
         const Resena = "Profesor que imparte clases en la UDC" 
 
-        cy.get(':nth-child(7) > :nth-child(2) > .card > .course-image')
+        cy.get(ruta)
         .click()
         
         cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
@@ -59,6 +60,10 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get('#btnProfesorCancelarGuardado')
         .should('be.visible')
         .click()
+
+        cy.contains(Institucion)
+        cy.contains(nombramiento)
+        cy.contains(Institucion)
         /*
         cy.get('container > .media-list > .media > em > span')
         .should('have.value',nombramiento)
@@ -76,7 +81,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
      // Caso de prueba para perfil de profesores
      it('Profesor: Profesor en educ / Cambiar imagen de perfil', () => {
         
-        cy.get(':nth-child(7) > :nth-child(2) > .card > .course-image')
+        cy.get(ruta)
         .click()
         
         cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
