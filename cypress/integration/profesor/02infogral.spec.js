@@ -124,7 +124,7 @@ it("Profesor: Nueva carpeta / Información general", () => {
 
 
   it("Profesor: Eliminar infogral / Información general", () => {
-    cy.get(':nth-child(6) > :nth-child(2) > .col-md-6 > .card > .course-image ').click();
+    cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image ').click();
 
     cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
