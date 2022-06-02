@@ -7,9 +7,8 @@ describe("Profesor en educ", () => {
     cy.iniciarSesionDev();
   });
 
- it("Profesor: Nuevo texto / Información general", () => {
-    cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
-        .click()
+  it.only("Profesor: Nuevo texto / Información general", () => {
+    cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image').click();
 
     cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
@@ -50,8 +49,8 @@ describe("Profesor en educ", () => {
     const nuevoAdjuntoNombre = "Nombre test";
     const nuevoAdjuntoDescripcion = "Adjunto test descripción";
 
-    cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image ').click();
-    
+    cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image').click();
+
     cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
     cy.get("#dropdownInfogral").click();
@@ -94,7 +93,7 @@ it("Profesor: Nueva carpeta / Información general", () => {
     const nuevaCarpetaDescripcion =
       "Descripcion de la nueva carpeta desde Cypress";
 
-      cy.get(':nth-child(6) > :nth-child(2) > .col-md-6 > .card > .course-image ').click();
+    cy.get(':nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image').click();
 
     cy.visit("http://deveduc.ddns.net:88/profesor/infogral/index_admon.php");
 
