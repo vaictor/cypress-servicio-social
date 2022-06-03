@@ -16,12 +16,16 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(ruta)
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/curso/presentacion/index_admon.php')
+        cy.visit('http://deveduc.ddns.net:88/profesor/presentacion/index_admon.php')
 
-        cy.get('#premodif')
+        cy.wait(500)
+
+        cy.get('#btnPresentacionModificar')
         .click()
 
-        cy.get('.cke_wysiwyg_frame').then(function ($iframe) {
+        cy.wait(500)
+
+        cy.get("iframe.cke_wysiwyg_frame").then(function ($iframe) {
             const $body = $iframe.contents().find("body");
             //console.log($body);
             cy.wrap($body[0]).type(
@@ -31,11 +35,14 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
                 "<li>the JWT’s payload</li>" +
                 "<li>a secret value</li></ul>"
             );
+          });
 
-        });
-
-        cy.get('#btn-guardar')
+        cy.get('#btnPresentacionModificar')
         .click();
+
+        cy.wait(500)
+
+        //La prueba falla porque da error 401, por el token
         
     })
 
