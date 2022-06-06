@@ -9,11 +9,10 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.iniciarSesionDev()
     })
 
-    const ruta = ":nth-child(6) > :nth-child(3) > .col-md-6 > .card > .course-image"
     
     it('Profesor: Prensentacion en educ / Cambiar imagen de perfil', () => {
 
-        cy.get(ruta)
+        cy.get('#10419')
         .click()
         
         cy.visit('http://deveduc.ddns.net:88/profesor/presentacion/index_admon.php')
