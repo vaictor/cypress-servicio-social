@@ -12,13 +12,13 @@ describe('Pruebas del alumno de la plataforma educ', () => {
     it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
         cy.iniciarSesionDev()   
 
-        cy.get(':nth-child(5) > :nth-child(2) > .card > .course-image')
+        cy.get('#9285')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/alumno/anuncios/index.php')
 
         cy.get(".anuncio")
-        .contains('Bienvenida al curso')
+        .contains('Encuesta sobre prácticas de la materia Desarrollo de Software Seguro')
         .should('exist')
         
         console.log('Termina de comprobar que haya un elemento')
@@ -28,7 +28,7 @@ describe('Pruebas del alumno de la plataforma educ', () => {
     it('Profesor: Anuncios en educ / Encontrar que no hay elementos', () =>{
         cy.iniciarSesionDev()   
 
-        cy.get(':nth-child(6) > :nth-child(2) > .col-md-6 > .card > .course-image')
+        cy.get('#9285')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/alumno/anuncios/index.php')
