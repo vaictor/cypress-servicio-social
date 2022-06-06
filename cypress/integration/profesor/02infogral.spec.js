@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 // Caso de prueba para infogral educ
 describe("Profesor en educ", () => {
   before(() => {});
