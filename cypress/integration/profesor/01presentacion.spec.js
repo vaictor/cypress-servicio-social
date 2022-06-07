@@ -12,6 +12,8 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     
     it('Profesor: Prensentacion en educ / Cambiar imagen de perfil', () => {
 
+        const confiMensaje="Presentacion editada con éxito"
+
         cy.get('#10419')
         .click()
         
@@ -39,7 +41,12 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get('#btnPresentacionModificar')
         .click();
 
+        cy.get('.swal2-popup')
+        cy.contains(confiMensaje).should("exist")
+
         cy.wait(500)
+        cy.get('.swal2-confirm')
+        .click()
 
         //La prueba falla porque da error 401, por el token
         

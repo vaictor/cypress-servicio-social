@@ -12,7 +12,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
 
-        cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
+        cy.get('#10350')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -27,7 +27,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar que no hay elementos', () =>{
 
-        cy.get(':nth-child(6) > :nth-child(2) > .col-md-6 > .card > .course-image')
+        cy.get('#10350')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -40,27 +40,34 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     })
 
     // Caso de prueba para Anuncios del profesor
-    it.only('Profesor: Anuncios en educ / Eliminar un elemento', () => {
+    it('Profesor: Anuncios en educ / Eliminar un elemento', () => {
+        
+        const confiMensaje ="Se ha eliminado el recurso"
 
-        cy.get(':nth-child(4) > .col-md-6 > .card > .course-image')
+        cy.get('#10350')
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
 
         cy.get(".anuncio")
-        .contains('prueba')
+        .contains('Bienvenida al curso')
         .should('exist')
 
-        cy.get('#btnAnunciosEliminar31711')
+        cy.get('#btnAnunciosEliminar30960')
         .click()
 
         cy.wait(500)
+
+        cy.get(".swal2-popup")
+        .contains(confiMensaje)
+        .should('exist')
+
         cy.get('.swal2-confirm')
         .should('be.visible')
         .click()
 
         cy.get(".anuncio")
-        .contains('prueba')
+        .contains('Bienvenida al curso')
         .should('exist')
         
         console.log('Termina de comprobar que el elemento se haya eliminado')
