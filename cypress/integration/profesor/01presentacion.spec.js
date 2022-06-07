@@ -1,3 +1,4 @@
+Cypress._.times(10, () => {
 describe('Pruebas del Profesor de la plataforma educ', () => {
 
     before(() => {
@@ -10,9 +11,9 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     })
 
     
-    it('Profesor: Prensentacion en educ / Cambiar imagen de perfil', () => {
+    it('Profesor: Prensentacion en educ / Editar y guardar', () => {
 
-        const confiMensaje = "Presentacion editada con éxito"
+        const confiMensaje = "Presentación guardada con éxito"
         const Presentacion = "Mensaje de prueba"
 
         cy.get('#10419')
@@ -25,12 +26,12 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get('#btnPresentacionModificar')
         .click()
 
-        cy.wait(500)
+        cy.wait(1500)
 
         cy.get("iframe.cke_wysiwyg_frame").then(function ($iframe) {
           const $body = $iframe.contents().find("body");
           //console.log($body);
-          cy.wrap($body[0]).type(Presentacion);
+          cy.wrap($body[0]).clear().type(Presentacion);
         });
 
         cy.get('#btnPresentacionGuardar')
@@ -48,3 +49,5 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     })
 
 })
+
+}) // run n times 
