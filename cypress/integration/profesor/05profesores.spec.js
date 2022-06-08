@@ -9,14 +9,16 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.iniciarSesionDev()
     })
     
+    const arrayCursos = Cypress.env('arrayCursos');
+    arrayCursos.forEach(elem => {
     // Caso de prueba para perfil de profesores
-    it('Profesor: Profesor en educ / Editar perfil', () => {
+    it(`Profesor: Profesor en educ${elem} / Editar perfil`, () => {
         const nombramiento = "Profesor por horas de la Facultad de Telemática" 
         const Institucion = "Universidad de Colima" 
-        const Resena = "*Análisis, diseño y desarrollo de software \n*Gestión de proyectos de software \n*Profesor por horas" 
+        const Resena = `*Análisis, diseño y desarrollo de software \n*Gestión de proyectos de software \n*Profesor por horas \n*Curso ${elem}` 
         const confiMensaje= "Perfil editado con éxito"
 
-        cy.get('#10350')
+        cy.get(`#${elem}`)
         .click()
         
         cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
@@ -47,7 +49,8 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get('.swal2-confirm')
         .click()
 
-        cy.get('#btnProfesorEditar')    
+        
+        cy.get('#btnProfesorEditar')
         .click()
 
         cy.get('#txtProfesorNombramiento')
@@ -64,14 +67,16 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         .click()
 
         console.log('Termina de editar el perfil del profesor')
+            
     })
 
+
      // Caso de prueba para perfil de profesores
-     it.only('Profesor: Profesor en educ / Cambiar imagen de perfil', () => {
+     it('Profesor: Profesor en educ / Cambiar imagen de perfil', () => {
 
         const confiMensaje= "Perfil editado con éxito"
         
-        cy.get('#10350')
+        cy.get(`#${elem}`)
         .click()
         
         cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
@@ -94,5 +99,5 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         .click()
         
      })
-
+    })
   })
