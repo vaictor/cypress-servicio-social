@@ -10,6 +10,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Write the cypress.env.json file
+      # use quotes around the secret, as its value
+      # is simply inserted as a string into the command
+        run:
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
