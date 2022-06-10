@@ -49,6 +49,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get('.swal2-confirm')
         .click()
 
+        cy.reload(true)
         
         cy.get('#btnProfesorEditar')
         .click()

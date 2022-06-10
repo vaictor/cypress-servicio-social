@@ -8,11 +8,12 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.iniciarSesionDev();
     })
 
-
+    const arrayCursos = Cypress.env("arrayCursos");
+    arrayCursos.forEach((elem) => {
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar un elemento', () => {
 
-        cy.get('#10350')
+        cy.get(`#${elem}`)
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -27,7 +28,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     // Caso de prueba para Anuncios del profesor
     it('Profesor: Anuncios en educ / Encontrar que no hay elementos', () =>{
 
-        cy.get('#10350')
+        cy.get(`#${elem}`)
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -44,7 +45,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         
         const confiMensaje ="Se ha eliminado el recurso"
 
-        cy.get('#10350')
+        cy.get(`#${elem}`)
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
@@ -72,5 +73,5 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         
         console.log('Termina de comprobar que el elemento se haya eliminado')
     })
-
+    })
   })
