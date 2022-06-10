@@ -4,7 +4,6 @@ describe('Pruebas del alumno de educ', () => {
         cy.iniciarSesionDev()
     })
 
-
     const arrayCursos = Cypress.env('arrayCursos');
     arrayCursos.forEach(elem => {
         // Caso de prueba para perfil de profesores
