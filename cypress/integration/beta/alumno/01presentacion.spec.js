@@ -1,4 +1,4 @@
-describe('Pruebas del Profesor de la plataforma educ', () => {
+describe('Pruebas del Alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
@@ -7,7 +7,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
     const arrayCursos = Cypress.env('arrayCursos');
     arrayCursos.forEach(elem => {
 
-        it('Profesor: Prensentacion en educ / Comprobar que haya texto', () => {
+        it('Alumno: Prensentacion en educ / Comprobar que haya texto', () => {
 
             cy.get('#'+elem)
             .click()

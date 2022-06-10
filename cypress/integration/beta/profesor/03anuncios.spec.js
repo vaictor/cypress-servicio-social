@@ -14,9 +14,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
 
         cy.visit(Cypress.env('devUrl')+'profesor/anuncios/index_admon.php')
 
-        cy.get(".anuncio")
-        .contains('Bienvenida al curso')
-        .should('exist')
+        cy.get('.anuncio').invoke('text').should('have.length.gt', 0)  // gt == greater than
         
         console.log('Termina de comprobar que haya un elemento')
     })

@@ -15,17 +15,13 @@ describe("Pruebas del alumno de la plataforma educ", () => {
 
       cy.visit(Cypress.env('devUrl')+"alumno/anuncios/index.php");
 
-      cy.get(".anuncio")
-        .contains(
-          "Encuesta sobre prácticas de la materia Desarrollo de Software Seguro"
-        )
-        .should("exist");
+      cy.get('.anuncio').invoke('text').should('have.length.gt', 0)  // gt == greater than
 
       console.log("Termina de comprobar que haya un elemento");
     });
 
     // Caso de prueba para Anuncios del Alumno
-    it("Profesor: Anuncios en educ / Encontrar que no hay elementos", () => {
+    it("Alumno: Anuncios en educ / Encontrar que no hay elementos", () => {
       cy.iniciarSesionDev();
 
       cy.get(`#${elem}`)
