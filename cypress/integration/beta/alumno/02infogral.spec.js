@@ -4,16 +4,18 @@ describe('Pruebas del alumno de la plataforma educ', () => {
         console.log("Iniciar sesión")
         cy.iniciarSesionDev();
     })
+    const arrayCursos = Cypress.env('arrayCursos');
+arrayCursos.forEach(elem => {
 
 // Caso de prueba para infogral del alumno
     it('Alumno: Infogral en educ / listado', () => {
         cy.iniciarSesionDev()   
 
-        cy.get('#10419')
+        cy.get('#'+elem)
         .click()
 
         cy.visit('http://deveduc.ddns.net:88/alumno/infogral/')
         
     })
-
+})
   })

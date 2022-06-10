@@ -1,5 +1,14 @@
 {
-    "chromeWebSecurity": false,
-    "viewportWidth": 1024,
-    "viewportHeight": 768
-  }
+  "env": {
+      "devUrl": "http://deveduc.ddns.net:88/index.demo",
+      "testUrl": "http://educ.ddns.net:88/",
+      "prodUrl": "https://educ.ucol.mx/",
+      "usrProfesor": "vmedina@ucol.mx",
+      "pwdProfesor": "3qu1p03duc",
+      "usrAlumno": "usuarioeduc@ucol.mx",
+      "pwdAlumno": "3qu1p03duc",
+      "usrSoporte": "educweb@ucol.mx",
+      "pwdSoporte": "3qu1p03duc",
+      "arrayCursos" : ["9126","10419", "9285", "9896","3830","3906"]
+    }
+}
