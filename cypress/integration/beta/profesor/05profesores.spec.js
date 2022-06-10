@@ -16,7 +16,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(`#${elem}`)
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/profesor/index_admon.php')
 
         cy.get('#btnProfesorEditar')    
         .click()
@@ -75,7 +75,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(`#${elem}`)
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/profesor/profesor/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/profesor/index_admon.php')
 
         cy.get('#btnProfesorEditar')    
         .click()

@@ -14,7 +14,7 @@ describe('Pruebas del alumno de educ', () => {
             cy.get('#'+elem)
             .click()
 
-            cy.visit('http://deveduc.ddns.net:88/alumno/profesor/index.php')
+            cy.visit(Cypress.env('devUrl')+'alumno/profesor/index.php')
 
             cy.get('.btn-info').first()
             .click()

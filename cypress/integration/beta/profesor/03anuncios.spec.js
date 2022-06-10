@@ -12,7 +12,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(`#${elem}`)
         .click()
 
-        cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/anuncios/index_admon.php')
 
         cy.get(".anuncio")
         .contains('Bienvenida al curso')
@@ -27,7 +27,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(`#${elem}`)
         .click()
 
-        cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/anuncios/index_admon.php')
 
         cy.get(".alert")
         .contains('Esta es la pantalla')
@@ -44,7 +44,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
         cy.get(`#${elem}`)
         .click()
 
-        cy.visit('http://deveduc.ddns.net:88/profesor/anuncios/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/anuncios/index_admon.php')
 
         cy.get(".anuncio")
         .contains('Bienvenida al curso')

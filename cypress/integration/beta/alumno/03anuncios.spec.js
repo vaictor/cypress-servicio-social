@@ -13,7 +13,7 @@ describe("Pruebas del alumno de la plataforma educ", () => {
       cy.get(`#${elem}`)
         .click()
 
-      cy.visit("http://deveduc.ddns.net:88/alumno/anuncios/index.php");
+      cy.visit(Cypress.env('devUrl')+"alumno/anuncios/index.php");
 
       cy.get(".anuncio")
         .contains(
@@ -31,7 +31,7 @@ describe("Pruebas del alumno de la plataforma educ", () => {
       cy.get(`#${elem}`)
         .click()
 
-      cy.visit("http://deveduc.ddns.net:88/alumno/anuncios/index.php");
+      cy.visit(Cypress.env('devUrl')+"alumno/anuncios/index.php");
 
       cy.get(".alert")
         .contains("este curso no cuenta con información en este apartado")

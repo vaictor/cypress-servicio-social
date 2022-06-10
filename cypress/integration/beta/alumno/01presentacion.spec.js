@@ -12,7 +12,7 @@ describe('Pruebas del Profesor de la plataforma educ', () => {
             cy.get('#'+elem)
             .click()
             
-            cy.visit('http://deveduc.ddns.net:88/alumno/presentacion/index.php')
+            cy.visit(Cypress.env('devUrl')+'alumno/presentacion/index.php')
 
             cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
 
