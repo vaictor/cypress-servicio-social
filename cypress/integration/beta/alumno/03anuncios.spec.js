@@ -2,7 +2,6 @@ describe("Pruebas del alumno de la plataforma educ", () => {
   before(() => {});
 
   beforeEach(() => {
-    console.log("Iniciar sesión");
     cy.iniciarSesionDev();
   });
 

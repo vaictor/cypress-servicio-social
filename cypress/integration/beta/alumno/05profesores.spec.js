@@ -1,11 +1,6 @@
 describe('Pruebas del alumno de educ', () => {
 
-    before(() => {
-       
-    })
-
     beforeEach(() => {
-        console.log("Iniciar sesión")
         cy.iniciarSesionDev()
     })
 
