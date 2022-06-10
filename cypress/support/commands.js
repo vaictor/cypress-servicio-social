@@ -31,7 +31,7 @@ Cypress.Commands.add("iniciarSesionDev", () => {
         .type(Cypress.env('usrProfesor'));
 
     cy.get('#uClave')
-        .type(Cypress.env('pwdProfesor'));
+        .type(Cypress.env('pwdProfesor')+'index.demo');
 
     cy.get('.btn-wayf')
         .click();
