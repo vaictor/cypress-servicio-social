@@ -20,6 +20,8 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
             .click()
 
             cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
+            
+            cy.wait(1000)
 
             console.log('Termina de comprobar que haya texto')
         })

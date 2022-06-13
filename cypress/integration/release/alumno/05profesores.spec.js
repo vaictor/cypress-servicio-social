@@ -9,6 +9,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
         it('Alumno: Profesores en educ / Mandar mensaje a profesores', () => {
 
             const confiMensaje = "Se envió este mensaje a tu profesor por correo electrónico. Espera respuesta del mismo en tu bandeja de entrada del correo Universitario."
+            const asuntoMensaje = "Monitoreo del del aseguramiento de la calidad de Educ"
+            const bodyMensaje = "Esta es una prueba de funcionalidad realizada por el equipo de educ, si recibio este correo haga caso omiso"
 
             cy.get(`#${elem}`)
             .click()
@@ -20,10 +22,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('input').first()
-            .type("Monitoreo del del aseguramiento de la calidad de Educ")
+            .type(asuntoMensaje)
             
             cy.get('textarea').first()
-            .type("Esta es una prueba de funcionalidad realizada por el equipo de educ, si recibio este correo haga caso omiso")
+            .type(bodyMensaje)
 
             cy.get('button').contains('Enviar correo')
             .should('be.visible')

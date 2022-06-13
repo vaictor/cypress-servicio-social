@@ -16,6 +16,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.get('.anuncio').invoke('text').should('have.length.gt', 0)  // gt == greater than
 
+            cy.wait(1000)
+
             console.log("Termina de comprobar que haya un elemento");
         })
 
