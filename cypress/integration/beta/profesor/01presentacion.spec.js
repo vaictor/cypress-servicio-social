@@ -27,7 +27,7 @@ arrayCursos.forEach(elem => {
         cy.get('#'+elem)
         .click()
         
-        cy.visit('http://deveduc.ddns.net:88/profesor/presentacion/index_admon.php')
+        cy.visit(Cypress.env('devUrl')+'profesor/presentacion/index_admon.php')
 
         cy.get('#btnPresentacionModificar')
         .click()

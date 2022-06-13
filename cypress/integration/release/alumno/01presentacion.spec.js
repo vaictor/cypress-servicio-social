@@ -1,4 +1,4 @@
-describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
+describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
     before(() => {
        
@@ -9,18 +9,19 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
         cy.iniciarSesionDev()
     })
 
+    const arrayCursos = Cypress.env('arrayCursos');
+    arrayCursos.forEach(elem => {
+        it('Alumno: Prensentacion en educ / Comprobar que haya texto', () => {
 
-    it('Profesor: Prensentacion en educ / Comprobar que haya texto', () => {
+            cy.get(`#${elem}`)
+            .click()
+            
+            cy.get('li').contains('Presentación')
+            .click()
 
-        cy.get('#10419')
-        .click()
-        
-        cy.get('#menuPresenta')
-        .click()
+            cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
 
-        cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
-
-        console.log('Termina de comprobar que haya elementos')
+            console.log('Termina de comprobar que haya texto')
+        })
     })
-
 })
