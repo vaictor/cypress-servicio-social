@@ -34,8 +34,20 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#resena').clear()
             .type(resena)
 
+            cy.get('#file_upload')
+            .attachFile("app_icon.png")
+
+            cy.wait(1000)
+
+            cy.get('#crop')
+            .click()
+
             cy.get('button').contains('Guardar')
             .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de editar')
         
         })
     })
