@@ -1,5 +1,4 @@
 # This is a basic workflow that is manually triggered
-
 name: Mandar a pruebas manuales
 
 on: 
@@ -19,4 +18,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: whoami
+          script: ifconfig
