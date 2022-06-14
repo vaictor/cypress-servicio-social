@@ -1,5 +1,5 @@
-# cypress-servicio-social
-# Ejercicios para practicar con los jóvenes de servicio social
+# EDUC
+# Pruebas automáticas para la plataforma Educ (alumno y profesor)
 
 ### Instalar dependencias
 ``npm install``
