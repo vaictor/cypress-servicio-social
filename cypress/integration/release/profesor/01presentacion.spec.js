@@ -20,6 +20,8 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
                 <p><span style="font-size:14px;">Para iniciar vayan al apartado <a href="https://educ.ucol.mx/curso/actividades/index_admon.php" target="_blank">actividades</a> y comiencen con el trabajo de esta semana. Para cualquier duda me puede contactar a mi correo electrónico: <u><span style="color:#1155cc"><a href="mailto:vmedina@ucol.mx" style="color:#0563c1; text-decoration:underline">vmedina@ucol.mx</a></span></u></span></p>
                 <div class="youtube-embed-wrapper" style="position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden">&nbsp;</div>
                 <p>&nbsp;</p>
+                <p>Imagen</p>
+                <p><img alt="" src="https://concepto.de/wp-content/uploads/2018/04/base-de-datos-min-e1523470739502.jpg" style="width: 800px; height: 414px;" /></p>
                 </div>`
 
             cy.get('#'+elem)
