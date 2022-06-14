@@ -1,0 +1,22 @@
+# This is a basic workflow that is manually triggered
+
+name: Mandar a pruebas manuales
+
+on: 
+  push:
+    branches: [ pruebas-manuales ]
+
+jobs:
+  pruebas-manuales:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Entrar a la MV de pruebas manuales y bajar
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: whoami
