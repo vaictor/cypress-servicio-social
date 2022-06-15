@@ -20,6 +20,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/educ2-4/
-            $echo ${{ secrets.PASSWORD }} | sudo -S ${{ secrets.PASSWORD }} 
             git config --global --add safe.directory /var/www/html/***2-4
-            git pull educ25 sandoval
+            $echo ${{ secrets.PASSWORD }} | sudo -S git pull educ25 sandoval 
