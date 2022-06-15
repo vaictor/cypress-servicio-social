@@ -45,17 +45,29 @@ describe("RELEASE: Pruebas del Alumno de la plataforma educ", () => {
       cy.get(".confirmacion")
       .click()
 
+      cy.wait(1000)
+      let buttonText;
+
       cy.get("#btn_grabar")
       .click()
 
-      cy.get("#btn_reg1")
-      .click()
+      cy.wait(10000)
+      cy.get('#mBodyS > strong').then(($text) => {
+        buttonText = $text.text()
+        console.log(buttonText)
+        let curso = buttonText.substring(buttonText.length - 5, buttonText.length);
+        console.log(curso)
 
-      cy.reload(true)
+        cy.get("#btn_reg1").click()
+
+        cy.reload(true)
+        cy.wait(10000)
+
+        cy.get("#"+buttonText.substring(buttonText.length - 5, buttonText.length))
+        .click()
+      })
       
       console.log("Termina inscripcion de curso");
-
-      
 
   
     });
