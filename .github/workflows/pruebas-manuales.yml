@@ -20,4 +20,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/educ2-4/
-            $echo "${{ secrets.PASSWORD }}" | sudo -S "${{ secrets.PASSWORD }}"
+            echo "${{ secrets.PASSWORD }}" | sudo -S git pull educ25 sandoval
