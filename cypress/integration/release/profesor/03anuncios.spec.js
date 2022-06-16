@@ -72,14 +72,17 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#'+elem)
             .click()
 
-            cy.get('li').contains('Anuncios')
-            .click()
-
-            cy.contains(titulo).get('[type="checkbox"]').check()
+            cy.get('#label32122').click({force: true})
+            cy.wait(1000)
 
             cy.get('#menus > :nth-child(3) > .btn')
             .click()
             
+            cy.wait(1000)
+            cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
+            .click()
+
+            cy.wait(1000)
             console.log('Termina de eliminar un elemento')
             
         })
