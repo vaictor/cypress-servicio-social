@@ -25,19 +25,16 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#folder-btn')
             .click()
 
-            cy.get('#txt_nombre')
-            .type('Carpeta cypress adjunto')
+            cy.get('#txt_nombre_folder')
+            .type('Carpeta cypress')
 
-            //Modal de crear carpeta, descripcion no contiene ID
-            cy.get('#folder-new > :nth-child(2) > .col-sm-6 > .form-control')
-            .type('Descripcion cypress adjunto')
+            cy.get('#txt_descriptor_folder')
+            .type('Descripcion cypress ')
 
-            //Modal de crear carpeta, select de siempre disponible no contiene ID
-            cy.get('#folder-new > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_folder')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear carpeta, select de carpeta de destino no contiene ID
-            cy.get('#folder-new > :nth-child(6) > .col-sm-6 > .form-control')
+            cy.get('#lst_carpeta_destino_carpeta')
             .select('Sin carpeta').should('have.value', 'raiz')
 
             cy.get('#modal-submit')
@@ -61,22 +58,18 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.dropdown-menu > :nth-child(2) > a')
+            cy.get('#adjunto-btn')
             .click()
 
-            //Falta ver donde colocar el archivo
-            //cy.get('#file_upload_drive')
-            //.attachFile("app_icon.png")
+            cy.get('#file_upload_drive')
+            .attachFile("Principios de seguridad de desarrollo de software.pdf")
 
-             //Modal de crear adjunto, input de nombre no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_drive')
             .type('Nombre cypress adjunto fuera de carpeta')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_drive')
             .type('Descripcion cypress adjunto')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
             cy.get('#adjuntar_drive > :nth-child(4) > .col-sm-6 > .form-control')
             .select('Si').should('have.value', '1')
 
@@ -84,8 +77,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#adjuntar_drive > :nth-child(7) > .col-sm-6 > .form-control')
             .select('Sin carpeta').should('have.value', 'raiz')
 
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get(' #enviaN_drive')
+            cy.get('#enviaN_drive')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
@@ -109,19 +101,16 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.dropdown-menu > :nth-child(2) > a')
+            cy.get('#adjunto-btn')
             .click()
 
-            //Falta ver donde colocar el archivo
-            //cy.get('#file_upload_drive')
-            //.attachFile("app_icon.png")
+            cy.get('#file_upload_drive')
+            .attachFile("Principios de seguridad de desarrollo de software.pdf")
 
-             //Modal de crear adjunto, input de nombre no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_drive')
             .type('Nombre cypress adjunto dentro de carpeta')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_drive')
             .type('Descripcion cypress adjunto')
 
             //Modal de crear adjunto, select de siempre disponible no contiene ID
@@ -130,10 +119,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             //Modal de crear adjunto, select de carpeta de destino no contiene ID
             cy.get('#adjuntar_drive > :nth-child(7) > .col-sm-6 > .form-control')
-            .select('Carpeta cypress adjunto')
+            .select('Carpeta cypress')
 
             //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get(' #enviaN_drive')
+            cy.get('#enviaN_drive')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
@@ -157,31 +146,25 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.open > .dropdown-menu > :nth-child(3) > a')
+            cy.get('#enlace-btn')
             .click()
 
-             //Modal de crear enlace, input de nombre no contiene ID
-            cy.get('#enlace > :nth-child(1) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_enlace')
             .type('Nombre cypress enlace')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#enlace > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_enlace')
             .type('Descripcion cypress enlace fuera de la carpeta')
 
-             //Modal de crear adjunto, input de enlace no contiene ID
-            cy.get('#enlace > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_url_enlace')
             .type('https://www.youtube.com/watch?v=HDFNjDKKO6A')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
-            cy.get('#enlace > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_enlace')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#enlace > :nth-child(7) > .col-sm-6 > .form-control')
+            cy.get('#lst_carpeta_destino_enlace')
             .select('Sin carpeta').should('have.value', 'raiz')
 
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get('#enlace > :nth-child(8) > .col-sm-6 > #enviaN')
+            cy.get('#envia-enlace')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
@@ -205,31 +188,25 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.open > .dropdown-menu > :nth-child(3) > a')
+            cy.get('#enlace-btn')
             .click()
 
-             //Modal de crear enlace, input de nombre no contiene ID
-            cy.get('#enlace > :nth-child(1) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_enlace')
             .type('Nombre cypress enlace')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#enlace > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_enlace')
             .type('Descripcion cypress enlace fuera de la carpeta')
 
-             //Modal de crear adjunto, input de enlace no contiene ID
-            cy.get('#enlace > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_url_enlace')
             .type('https://www.youtube.com/watch?v=HDFNjDKKO6A')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
-            cy.get('#enlace > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_enlace')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#enlace > :nth-child(7) > .col-sm-6 > .form-control')
-            .select('Carpeta cypress adjunto')
+            cy.get('#lst_carpeta_destino_enlace')
+            .select('Carpeta cypress')
 
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get('#enlace > :nth-child(8) > .col-sm-6 > #enviaN')
+            cy.get('#envia-enlace')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
@@ -253,31 +230,25 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.dropdown-menu > :nth-child(4) > a')
+            cy.get('#carpea-drive-btn')
             .click()
 
-             //Modal de crear enlace, input de nombre no contiene ID
-            cy.get('#drive > :nth-child(1) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_folder_drive')
             .type('Nombre cypress enlace drive')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#drive > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_folder_drive')
             .type('Descripcion cypress enlace de drive')
 
-             //Modal de crear adjunto, input de enlace no contiene ID
-            cy.get('#drive > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_url_folder_drive')
             .type('https://drive.google.com/drive/folders/1X4HdOPjhGCeXuC_EO155Pa1umHTylXYq?usp=sharing')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
-            cy.get('#drive > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_folder_drive')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#drive > :nth-child(7) > .col-sm-6 > .form-control')
+            cy.get('#lst_carpeta_destino_folder_drive')
             .select('Sin carpeta').should('have.value', 'raiz')
 
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get('#drive > :nth-child(8) > .col-sm-6 > #enviaN')
+            cy.get('#envia--folder-drive')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
@@ -301,31 +272,25 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.wait(1000)
 
-            cy.get('.dropdown-menu > :nth-child(4) > a')
+            cy.get('#carpea-drive-btn')
             .click()
 
-             //Modal de crear enlace, input de nombre no contiene ID
-            cy.get('#drive > :nth-child(1) > .col-sm-6 > .form-control')
+            cy.get('#txt_nombre_folder_drive')
             .type('Nombre cypress enlace drive')
 
-             //Modal de crear adjunto, input de descripcion no contiene ID
-            cy.get('#drive > :nth-child(2) > .col-sm-6 > .form-control')
+            cy.get('#txt_descriptor_folder_drive')
             .type('Descripcion cypress enlace de drive')
 
-             //Modal de crear adjunto, input de enlace no contiene ID
-            cy.get('#drive > :nth-child(3) > .col-sm-6 > .form-control')
+            cy.get('#txt_url_folder_drive')
             .type('https://drive.google.com/drive/folders/1X4HdOPjhGCeXuC_EO155Pa1umHTylXYq?usp=sharing')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
-            cy.get('#drive > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_folder_drive')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#drive > :nth-child(7) > .col-sm-6 > .form-control')
-            .select('Carpeta cypress adjunto')
+            cy.get('#lst_carpeta_destino_folder_drive')
+            .select('Carpeta cypress')
 
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
-            cy.get('#drive > :nth-child(8) > .col-sm-6 > #enviaN')
+            cy.get('#envia--folder-drive')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
