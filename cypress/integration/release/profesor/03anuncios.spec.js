@@ -72,7 +72,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#'+elem)
             .click()
 
-            cy.get('#label32122').click({force: true})
+            cy.get('.checkbox').first().click({force: true})
             cy.wait(1000)
 
             cy.get('#menus > :nth-child(3) > .btn')
