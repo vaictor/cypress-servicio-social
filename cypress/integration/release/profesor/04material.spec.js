@@ -70,11 +70,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#txt_descriptor_drive')
             .type('Descripcion cypress adjunto')
 
-            cy.get('#adjuntar_drive > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_drive')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(7) > .col-sm-6 > .form-control')
+            cy.get('#lst_carpeta_destino_drive')
             .select('Sin carpeta').should('have.value', 'raiz')
 
             cy.get('#enviaN_drive')
@@ -113,15 +112,12 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#txt_descriptor_drive')
             .type('Descripcion cypress adjunto')
 
-            //Modal de crear adjunto, select de siempre disponible no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(4) > .col-sm-6 > .form-control')
+            cy.get('#lst_siempre_drive')
             .select('Si').should('have.value', '1')
 
-            //Modal de crear adjunto, select de carpeta de destino no contiene ID
-            cy.get('#adjuntar_drive > :nth-child(7) > .col-sm-6 > .form-control')
+            cy.get('#lst_carpeta_destino_drive')
             .select('Carpeta cypress')
-
-            //Modal de crear adjunto, select de enviar notificaciones no contiene ID
+            
             cy.get('#enviaN_drive')
             .select('No').should('have.value', '2')
 
@@ -270,7 +266,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#btnGroupDrop1')
             .click()
 
-            cy.wait(2000)
+            cy.wait(1000)
 
             cy.get('#carpea-drive-btn')
             .click()
@@ -290,7 +286,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#lst_carpeta_destino_folder_drive')
             .select('Carpeta cypress')
 
-            cy.get('#envia--folder-drive')
+            cy.get('#envia_folder_drive')
             .select('No').should('have.value', '2')
 
             cy.get('#modal-submit')
