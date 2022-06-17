@@ -1,7 +1,10 @@
 describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
     beforeEach(() => {
-        cy.iniciarSesionDev()
+      const idCurso = '#9896';
+      cy.iniciarSesionDev()
+      cy.get(idCurso).click();
+      cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
     })
 
     it('Profesor: Información general en educ / Comprobar que haya texto', () => {
