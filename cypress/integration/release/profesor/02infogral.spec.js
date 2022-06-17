@@ -66,7 +66,7 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.contains(nuevoTextoDesc).should("exist");
     });
 
-    it.only("Profesor: Nuevo adjunto / Información general", () => {
+    it("Profesor: Nuevo adjunto / Información general", () => {
       const nuevoAdjuntoNombre = "Nombre test";
       const nuevoAdjuntoDesc = "Adjunto test descripción";
 
