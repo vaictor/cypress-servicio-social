@@ -7,6 +7,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
     const arrayCursos = Cypress.env('arrayCursos');
     arrayCursos.forEach(elem => {
 
+        let idCarpeta = ''
+
         it('Profesor: Material de estudio en educ / Crear una carpeta', () => {
 
             cy.get('#'+elem)
@@ -41,6 +43,37 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear la carpeta')
+        })
+
+        it("Profesor:  Material de estudio en educ / Obtener id de carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                console.log(id)
+                console.log(id[0].id)
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    console.log(label2)
+                    array.push(label2)
+                }
+                console.log(array)
+                var m = Math.max(...array);
+                console.log(m)
+                idCarpeta = m
+                console.log(idCarpeta)
+              })
+        
+            cy.wait(1000)
+            console.log('Termina de obtener el id')
+            
         })
 
         it('Profesor: Material de estudio en educ / Crear adjunto Fuera de la carpeta', () => {
@@ -83,6 +116,106 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear el adjunto fuera de la carpeta')
+        })
+
+        it("Profesor: Material de estudio en educ / Editar un adjunto Fuera de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                console.log(id)
+                console.log(id[0].id)
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    console.log(label2)
+                    array.push(label2)
+                }
+                console.log(array)
+                var m = Math.max(...array);
+                console.log(m)
+                cy.get("#lbl" + m).click({force: true})
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_drive").clear()
+            .type("Nombre cypress adjunto fuera de carpeta editado")
+
+            cy.get("#txt_descriptor_drive").clear()
+            .type("Descripcion cypress adjunto editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe adjunto Fuera de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+
+        it("Profesor: Material de estudio en educ / Eliminar un anuncio", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                console.log(id)
+                console.log(id[0].id)
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    console.log(label2)
+                    array.push(label2)
+                }
+                console.log(array)
+                var m = Math.max(...array);
+                console.log(m)
+                cy.get("#lbl" + m).click({force: true})
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#menus > :nth-child(3) > .btn')
+            .click()
+            
+            cy.wait(1000)
+
+            cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
         })
 
         it('Profesor: Material de estudio en educ / Crear adjunto dentro de la carpeta', () => {
