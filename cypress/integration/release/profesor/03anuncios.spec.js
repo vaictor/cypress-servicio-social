@@ -68,42 +68,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
         })
 
-        it("Alumno: Anuncios en educ / Eliminar un elemento", () => {
-            cy.get('#'+elem)
-            .click()
-
-              cy.get('label').then((id) => {
-                console.log(id)
-                console.log(id[0].id)
-                let array=[]
-                for(let i =0; i<id.length ;i++ ){
-                    let label = id[i].id
-                    let label2 = label.substring(label.length - 5, label.length);
-                    console.log(label2)
-                    array.push(label2)
-                }
-                console.log(array)
-                var m = Math.max(...array);
-                console.log(m)
-                cy.get("#label" + m).click({force: true})
-              })
-
-
-            cy.wait(1000)
-
-            cy.get('#menus > :nth-child(3) > .btn')
-            .click()
-            
-            cy.wait(1000)
-            cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
-            .click()
-
-            cy.wait(1000)
-            console.log('Termina de eliminar un elemento')
-            
-        })
-
-        it("Alumno: Anuncios en educ / Editar un elemento", () => {
+        it("Alumno: Anuncios en educ / Editar un anuncio", () => {
             cy.get('#'+elem)
             .click()
 
@@ -158,7 +123,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             
         })
 
-        it("Alumno: Anuncios en educ / Comprobar que haya elementos", () => {
+        it("Alumno: Anuncios en educ / Comprobar que si exiten anuncio", () => {
             cy.get('#'+elem)
             .click()
 
@@ -169,6 +134,43 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
         
             console.log('Termina de comprobar que haya un elemento')
         })
+
+
+        it("Alumno: Anuncios en educ / Eliminar un anuncio", () => {
+            cy.get('#'+elem)
+            .click()
+
+              cy.get('label').then((id) => {
+                console.log(id)
+                console.log(id[0].id)
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    console.log(label2)
+                    array.push(label2)
+                }
+                console.log(array)
+                var m = Math.max(...array);
+                console.log(m)
+                cy.get("#label" + m).click({force: true})
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#menus > :nth-child(3) > .btn')
+            .click()
+            
+            cy.wait(1000)
+            cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
+            .click()
+
+            cy.wait(1000)
+            console.log('Termina de eliminar un elemento')
+            
+        })
+
         it("Alumno: Anuncios en educ / Encontrar que no hay elementos", () => {
             cy.iniciarSesionDev();
       
@@ -182,7 +184,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .contains("Esta es la pantalla a la que el estudiante llega cada que ingresa al curso.")
             .should("exist");
       
-            console.log("Termina de comprobar que no haya elementos");
+            console.log("Termina de comprobar que no existe el anuncio");
           });
     })
 })
