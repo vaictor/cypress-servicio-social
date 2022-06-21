@@ -55,20 +55,14 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.wait(5000)
 
               cy.get('label').then((id) => {
-                console.log(id)
-                console.log(id[0].id)
                 let array=[]
                 for(let i =0; i<id.length ;i++ ){
                     let label = id[i].id
                     let label2 = label.substring(label.length - 5, label.length);
-                    console.log(label2)
                     array.push(label2)
                 }
-                console.log(array)
                 var m = Math.max(...array);
-                console.log(m)
                 idCarpeta = m
-                console.log(idCarpeta)
               })
         
             cy.wait(1000)
@@ -128,19 +122,15 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.wait(5000)
 
               cy.get('label').then((id) => {
-                console.log(id)
-                console.log(id[0].id)
                 let array=[]
                 for(let i =0; i<id.length ;i++ ){
                     let label = id[i].id
                     let label2 = label.substring(label.length - 5, label.length);
-                    console.log(label2)
                     array.push(label2)
                 }
-                console.log(array)
                 var m = Math.max(...array);
-                console.log(m)
-                cy.get("#lbl" + m).click({force: true})
+                cy.get("#lbl1" + m)
+                .click()
               })
 
             cy.wait(1000)
@@ -148,10 +138,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#premodif')
             .click()
 
-            cy.get("#txt_nombre_drive").clear()
+            cy.get("#txt_nombre_modificar_enlace").clear()
             .type("Nombre cypress adjunto fuera de carpeta editado")
 
-            cy.get("#txt_descriptor_drive").clear()
+            cy.get("#txt_descriptor_modificar_enlace").clear()
             .type("Descripcion cypress adjunto editado")
 
             cy.get('#modal-submit')
@@ -161,7 +151,6 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             console.log('Termina de Editar un elemento')
         })
-
 
         it("Profesor: Material de estudio en educ / Comprobar que si existe adjunto Fuera de la carpeta", () => {
             cy.get('#'+elem)
@@ -175,8 +164,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             console.log('Termina de comprobar que haya un elemento')
         })
 
-
-        it("Profesor: Material de estudio en educ / Eliminar un anuncio", () => {
+        it("Profesor: Material de estudio en educ / Eliminar un adjunto Fuera de la carpeta", () => {
             cy.get('#'+elem)
             .click()
 
@@ -186,30 +174,26 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.wait(5000)
 
               cy.get('label').then((id) => {
-                console.log(id)
-                console.log(id[0].id)
                 let array=[]
                 for(let i =0; i<id.length ;i++ ){
                     let label = id[i].id
                     let label2 = label.substring(label.length - 5, label.length);
-                    console.log(label2)
                     array.push(label2)
                 }
-                console.log(array)
                 var m = Math.max(...array);
-                console.log(m)
-                cy.get("#lbl" + m).click({force: true})
+                cy.get("#lbl1" + m)
+                .click()
               })
 
 
             cy.wait(1000)
 
-            cy.get('#menus > :nth-child(3) > .btn')
+            cy.get('#btn-menu-eliminar')
             .click()
             
-            cy.wait(1000)
+            cy.wait(2000)
 
-            cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
+            cy.get("button").contains("Aceptar")
             .click()
 
             cy.wait(1000)
@@ -260,6 +244,96 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             console.log('Termina de crear el adjunto fuera de la carpeta')
         })
 
+        it("Profesor: Material de estudio en educ / Editar un adjunto dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Nombre cypress adjunto dentro de carpeta editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress adjunto dentro de carpeta editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe adjunto dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Eliminar un adjunto dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
+        })
+
         it('Profesor: Material de estudio en educ / Crear enlace fuera de la carpeta', () => {
 
             cy.get('#'+elem)
@@ -279,7 +353,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre_enlace')
-            .type('Nombre cypress enlace')
+            .type('Nombre cypress enlace fuera de la carpeta')
 
             cy.get('#txt_descriptor_enlace')
             .type('Descripcion cypress enlace fuera de la carpeta')
@@ -300,6 +374,97 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear el enlace fuera de la carpeta')
+        })
+
+        it("Profesor: Material de estudio en educ / Editar un enlace fuera de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Nombre cypress enlace fuera de la carpeta editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress enlace fuera de la carpeta editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe un enlace fuera de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+
+        it("Profesor: Material de estudio en educ / Eliminar un enlace fuera de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
         })
 
         it('Profesor: Material de estudio en educ / Crear enlace dentro de la carpeta', () => {
@@ -321,10 +486,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre_enlace')
-            .type('Nombre cypress enlace')
+            .type('Nombre cypress enlace dentro de la carpeta')
 
             cy.get('#txt_descriptor_enlace')
-            .type('Descripcion cypress enlace fuera de la carpeta')
+            .type('Descripcion cypress enlace dentro de la carpeta')
 
             cy.get('#txt_url_enlace')
             .type('https://www.youtube.com/watch?v=HDFNjDKKO6A')
@@ -342,6 +507,96 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear el enlace fuera de la carpeta')
+        })
+
+        it("Profesor: Material de estudio en educ / Editar un enlace dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Nombre cypress enlace dentro de la carpeta editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress enlace dentro de la carpeta editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe un enlace dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Eliminar un enlace dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
         })
 
         it('Profesor: Material de estudio en educ / vincular carpeta de drive fuera de carpeta', () => {
@@ -363,10 +618,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre_folder_drive')
-            .type('Nombre cypress enlace drive')
+            .type('Nombre cypress enlace drive fuera de carpeta')
 
             cy.get('#txt_descriptor_folder_drive')
-            .type('Descripcion cypress enlace de drive')
+            .type('Descripcion cypress enlace de drive fuera de carpeta')
 
             cy.get('#txt_url_folder_drive')
             .type('https://drive.google.com/drive/folders/1X4HdOPjhGCeXuC_EO155Pa1umHTylXYq?usp=sharing')
@@ -384,6 +639,96 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear el enlace fuera de la carpeta')
+        })
+
+        it("Profesor: Material de estudio en educ / Editar una carpeta de drive fuera de carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Nombre cypress enlace de drive fuera de carpeta editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress enlace de drive fuera de carpeta editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe una carpeta de drive fuera de carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Eliminar una carpeta de drive fuera de carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
         })
 
         it('Profesor: Material de estudio en educ / vincular carpeta de drive dentro de la carpeta', () => {
@@ -405,10 +750,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre_folder_drive')
-            .type('Nombre cypress enlace drive')
+            .type('Nombre cypress enlace drive dentro de la carpeta')
 
             cy.get('#txt_descriptor_folder_drive')
-            .type('Descripcion cypress enlace de drive')
+            .type('Descripcion cypress enlace de drive dentro de la carpeta')
 
             cy.get('#txt_url_folder_drive')
             .type('https://drive.google.com/drive/folders/1X4HdOPjhGCeXuC_EO155Pa1umHTylXYq?usp=sharing')
@@ -426,6 +771,168 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
             
             console.log('Termina de crear el enlace fuera de la carpeta')
+        })
+
+        it("Profesor: Material de estudio en educ / Editar una carpeta de drive dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Nombre cypress enlace drive dentro de la carpeta editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress enlace drive dentro de la carpeta editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe una carpeta de drive dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Eliminar una carpeta de drive dentro de la carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+              cy.get('label').then((id) => {
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    array.push(label2)
+                }
+                var m = Math.max(...array);
+                cy.get("#lbl1" + m)
+                .click()
+              })
+
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
+        })
+
+        it("Profesor: Material de estudio en educ / Editar una carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+
+            cy.get("#lbl1" + idCarpeta)
+            .click()
+
+            cy.wait(1000)
+
+            cy.get('#premodif')
+            .click()
+
+            cy.get("#txt_nombre_modificar_enlace").clear()
+            .type("Carpeta cypress editado")
+
+            cy.get("#txt_descriptor_modificar_enlace").clear()
+            .type("Descripcion cypress editado")
+
+            cy.get('#modal-submit')
+            .click()
+        
+            cy.wait(1000)
+
+            console.log('Termina de Editar un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Comprobar que si existe una carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.get('.archivo').invoke('text').should('have.length.gt', 0)  // gt == greater than
+        
+            console.log('Termina de comprobar que haya un elemento')
+        })
+
+        it("Profesor: Material de estudio en educ / Eliminar una carpeta", () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li').contains('Material de estudio')
+            .click()
+
+            cy.wait(5000)
+
+            cy.get("#lbl1" + idCarpeta)
+            .click()
+
+            cy.wait(1000)
+
+            cy.get('#btn-menu-eliminar')
+            .click()
+            
+            cy.wait(2000)
+
+            cy.get("button").contains("Aceptar")
+            .click()
+
+            cy.wait(1000)
+
+            console.log('Termina de eliminar un elemento')
+            
         })
     })
 })
