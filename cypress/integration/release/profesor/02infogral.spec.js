@@ -5,10 +5,16 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.iniciarSesionDev()
       cy.get(idCurso).click();
       cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
+      
       cy.intercept({
         method: "PUT",
         url: "/api/cursos/profesores/carpetas",
       }).as("reqEditarCarpeta");
+
+      cy.intercept({
+        method: "DELETE",
+        url: "/api/cursos/profesores/carpetas",
+      }).as("reqEliminarCarpeta");
     })
 
     it("Profesor: Nueva carpeta / Información general", () => {
@@ -36,13 +42,11 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.contains(nuevaCarpetaNombre);
     });
 
-    it.only("Profesor: Editar carpeta / Informacion general", () => {
+    it("Profesor: Editar carpeta / Informacion general", () => {
       const carpetaEditarNuevoNombre = "Carpeta editada nombre";
       const carpetaEditarNuevaDesc = "Carpeta editada descripcion";
-      
-      cy.get(
-        'li[class^="folder"] .media > .media-body > .descarga > .fa'
-      )
+
+      cy.get('li[class^="folder"] .media > .media-body > .descarga > .fa')
         .first()
         .click();
 
@@ -51,7 +55,7 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.get("#txt_nombre_carpeta_modificar")
         .clear()
         .type(carpetaEditarNuevoNombre)
-        .should('have.value', carpetaEditarNuevoNombre);
+        .should("have.value", carpetaEditarNuevoNombre);
 
       cy.get("#txt_descriptor_carpeta_modificar")
         .clear()
@@ -60,10 +64,33 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.get("#modal-submit").click();
 
-      cy.wait('@reqEditarCarpeta');
+      cy.wait("@reqEditarCarpeta");
 
       cy.contains(carpetaEditarNuevoNombre);
-    })
+    });
+
+    it("Profesor: Eliminar carpeta / Informacion general", () => {
+      cy.get('li[class^="folder"]')
+        .first()
+        .then(($el) => {
+          const id = $el.attr('id');
+
+          cy.get('li[class^="folder"] .media > .media-body > .descarga > .fa')
+            .first()
+            .click()
+    
+          cy.get("#menus > :nth-child(3) > .btn").click();
+    
+          cy.get(
+            ".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
+          ).click();
+    
+          cy.wait('@reqEliminarCarpeta');
+
+          cy.get('#' + id).should('not.exist');
+        });
+
+    });
 
     it("Profesor: Nuevo texto/html / Información general", () => {
       const nuevoTextoNombre = "Horario de clase";
