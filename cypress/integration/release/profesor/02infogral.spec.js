@@ -5,6 +5,10 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.iniciarSesionDev()
       cy.get(idCurso).click();
       cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
+      cy.intercept({
+        method: "PUT",
+        url: "/api/cursos/profesores/carpetas",
+      }).as("reqEditarCarpeta");
     })
 
     it("Profesor: Nueva carpeta / Información general", () => {
@@ -31,6 +35,35 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.contains(nuevaCarpetaNombre);
     });
+
+    it.only("Profesor: Editar carpeta / Informacion general", () => {
+      const carpetaEditarNuevoNombre = "Carpeta editada nombre";
+      const carpetaEditarNuevaDesc = "Carpeta editada descripcion";
+      
+      cy.get(
+        'li[class^="folder"] .media > .media-body > .descarga > .fa'
+      )
+        .first()
+        .click();
+
+      cy.get("#premodif").click();
+
+      cy.get("#txt_nombre_carpeta_modificar")
+        .clear()
+        .type(carpetaEditarNuevoNombre)
+        .should('have.value', carpetaEditarNuevoNombre);
+
+      cy.get("#txt_descriptor_carpeta_modificar")
+        .clear()
+        .type(carpetaEditarNuevaDesc)
+        .should("have.value", carpetaEditarNuevaDesc);
+
+      cy.get("#modal-submit").click();
+
+      cy.wait('@reqEditarCarpeta');
+
+      cy.contains(carpetaEditarNuevoNombre);
+    })
 
     it("Profesor: Nuevo texto/html / Información general", () => {
       const nuevoTextoNombre = "Horario de clase";
