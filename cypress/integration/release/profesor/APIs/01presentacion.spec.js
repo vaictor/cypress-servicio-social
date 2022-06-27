@@ -30,15 +30,18 @@ describe("RELEASE: API presentación", () => {
             },
             body: {
                 idc : 10419,
-                nc : '<h1>API test</h1>'
+                nc : '<h1>API test2</h1>'
             }
           }).as('peticionApi');
 
           cy.get('@peticionApi').then(respuesta => {
               expect(respuesta.status).to.eq(200);
               //cy.log(todos.body.data);
-              cy.wrap(respuesta.body.data).should('not.be.empty');
-
+              expect(respuesta.body.message, 'Verificy update on database').to.be.oneOf([
+                'Registro actualizado',
+                'Sin cambios'
+              ])
+              
           }); //get
 
     }); // it
