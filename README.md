@@ -5,9 +5,9 @@
 ## API Test
 
 # Roles
-## Alumno
-## Profesor
-## Coordinador
+- Alumno
+- Profesor
+- Coordinador
 
 ### Instalar dependencias
 ``npm install``
