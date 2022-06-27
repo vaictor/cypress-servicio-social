@@ -2,6 +2,31 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+          cy.intercept({
+            method: "GET",
+            url: "/api/cursos/alumnos/curso/"+Cypress.env('arrayCursos')+"/foros",
+          }).as("reqGetForo");
+
+          cy.intercept({
+            method: "POST",
+            url: "/curso/foros/controllers/foros.controller.php?axn=crear",
+          }).as("reqCrearForo");
+
+          cy.intercept({
+            method: "POST",
+            url: "/curso/foros/controllers/foros.controller.php?axn=modificar&id_foro=10172",
+          }).as("reqModificarForo");
+
+          cy.intercept({
+            method: "POST",
+            url: "/curso/foros/controllers/foros.controller.php?axn=eliminar_logico&id_foro=10168&estado=1",
+          }).as("reqEliminarforo");
+
+          cy.intercept({
+            method: "POST",
+            url: "/curso/foros/controllers/foros.controller.php?axn=estado&id_foro=10172&estado=0",
+          }).as("reqDesactivarForo");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
@@ -15,7 +40,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
@@ -37,6 +62,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.get('#mover')
             .click()
+
+            cy.wait("@reqCrearForo");
             
             console.log('Termina de editar un foro')
         })
@@ -49,11 +76,12 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
-            cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
-            
-            cy.wait(1000)
+            cy.get('a').contains('Administrar Foros')
+            .click()
+
+            cy.get('.well').invoke('text').should('have.length.gt', 0)  // gt == greater than
       
             console.log("Termina de comprobar que existe el foro");
         })
@@ -66,12 +94,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
-
-            cy.wait(1000)
 
             cy.get('#dropdownMenu1')
             .click()
@@ -89,6 +115,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.get('#mover')
             .click()
+
+            cy.wait("@reqModificarForo");
             
             console.log('Termina de editar un foro')
         })
@@ -101,7 +129,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
@@ -119,6 +147,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('button').contains("Aceptar")
             .click()
 
+            cy.wait("@reqEliminarforo")
+
             console.log('Termina de eliminar el foro')
         })
 
@@ -130,7 +160,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(3000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
@@ -153,10 +183,12 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#mover')
             .click()
 
+            cy.wait("@reqCrearForo");
+
             console.log('Termina de editar un foro')
         })
         
-        it('Profesor: Comunicación en educ / Desactivar foro', () => {
+        it.only('Profesor: Comunicación en educ / Desactivar foro', () => {
             
             cy.get('#'+elem)
             .click()
@@ -164,7 +196,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
@@ -182,6 +214,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('button').contains("Aceptar")
             .click()
 
+            cy.wait("@reqDesactivarForo")
+
             console.log('Termina de desactivar el foro')
         })
 
@@ -194,7 +228,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(2000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
@@ -212,6 +246,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('button').contains("Aceptar")
             .click()
 
+            cy.wait("@reqEliminarforo")
+
             console.log('Termina de eliminar el foro')
         })
 
@@ -223,7 +259,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Comunicación')
             .click()
 
-            cy.wait(3000)
+            cy.wait("@reqGetForo");
 
             cy.get('a').contains('Administrar Foros')
             .click()
