@@ -8,6 +8,7 @@
 - Alumno
 - Profesor
 - Coordinador
+- Soporte técnico
 
 ### Instalar dependencias
 ``npm install``
