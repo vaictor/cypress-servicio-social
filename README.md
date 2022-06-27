@@ -4,6 +4,11 @@
 ## GUI Test o End-to-end Test 
 ## API Test
 
+# Roles
+## Alumno
+## Profesor
+## Coordinador
+
 ### Instalar dependencias
 ``npm install``
 
