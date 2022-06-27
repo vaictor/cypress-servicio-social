@@ -69,6 +69,8 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     cy.get("#btn_salvarM")
     .click()
 
+    cy.wait("@reqCrearCalificaciones")
+
     cy.contains(criterio+"Editado")
     
     console.log("Termina Editar criterio")
@@ -117,7 +119,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
 
     cy.contains("Hecho").click()
 
-    cy.wait(5000)
+    cy.wait(1000)
 
     console.log("Termina notificar calificacion")
   })
@@ -140,7 +142,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     cy.get("#btn_eliminar")
     .click()
     
-    cy.wait(500)
+    cy.wait("@reqCrearCalificaciones")
 
     console.log("Termina Eliminar criterio ")
   })
@@ -172,7 +174,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     cy.get("#btn_salvarI")
     .click()
 
-    cy.wait(5000)
+    cy.wait("@reqCrearCalificaciones")
 
     console.log("Termina crear criterio con actividad")
   });
@@ -198,6 +200,8 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     cy.get("#btn_salvarM")
     .click()
     
+    cy.wait("@reqCrearCalificaciones")
+
     console.log("Termina Editar criterio de actividad")
   })
 
@@ -219,7 +223,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     cy.get("#btn_eliminar")
     .click()
     
-    cy.wait(500)
+    cy.wait("@reqCrearCalificaciones")
 
     console.log("Termina Eliminar criterio de actividad")
   })
