@@ -12,5 +12,5 @@
 ### Instalar dependencias
 ``npm install``
 
-### Correr cypress
+### Abrir panel de cypress GUI
 ``npx cypress open``
