@@ -1,7 +1,6 @@
 describe("RELEASE: API anuncios", () => {
 
     it("Profesor: GET elementos HTML", () => {
-
         cy.request({
             method: 'GET',
             url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/anuncios/',
@@ -23,7 +22,6 @@ describe("RELEASE: API anuncios", () => {
 
 
       it("Profesor: GET Alumnos que no han ingresado ", () => {
-
         cy.request({
             method: 'GET',
             url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/usuario/1/actividades/',
@@ -36,11 +34,9 @@ describe("RELEASE: API anuncios", () => {
           cy.get('@peticionApi').then(respuesta => {
               expect(respuesta.status).to.eq(200);
               expect(respuesta.body.error).to.be.false; 
-              //cy.log(respuesta.body.error);
           }); //get
   
       }); // it
-
 
   });
   

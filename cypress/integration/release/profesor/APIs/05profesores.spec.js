@@ -1,7 +1,6 @@
 describe("RELEASE: API profesores", () => {
 
     it("Profesor: GET listado de profesores", () => {
-
         cy.request({
             method: 'GET',
             url: Cypress.env('devUrl')+'api/cursos/profesores/curso/10419/profesores',
@@ -22,7 +21,6 @@ describe("RELEASE: API profesores", () => {
 
 
     it("Profesor: PUT Actualiza información del profesor", () => {
-
         cy.request({
             method: 'PUT',
             url: Cypress.env('devUrl')+'api/cursos/profesores/profesores',
@@ -43,14 +41,12 @@ describe("RELEASE: API profesores", () => {
               expect(respuesta.status).to.eq(200);
               expect(respuesta.body.error).to.be.false; 
               cy.wrap(respuesta.body.message).should('eq','Registro actualizado');
-              //cy.log(respuesta.body.error);
           }); //get
   
       }); // it
 
 
       it("Profesor: PATCH Activar y desactivar perfil", () => {
-
         cy.request({
             method: 'PATCH',
             url: Cypress.env('devUrl')+'api/cursos/profesores/profesores',
@@ -73,9 +69,7 @@ describe("RELEASE: API profesores", () => {
       }); // it
 
 
-
       it("Profesor: POST Subir una imágen", () => {
-
         cy.get("#file_upload").attachFile("../app_icon.png");
         cy.request({
             method: 'POST',
@@ -92,11 +86,8 @@ describe("RELEASE: API profesores", () => {
           cy.get('@peticionApi').then(respuesta => {
               expect(respuesta.status).to.eq(200);
               expect(respuesta.body.error).to.be.false; 
-              //cy.log(respuesta.body.error);
           }); //get
   
       }); // it
 
-
   });
-  
