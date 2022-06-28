@@ -5,7 +5,7 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.iniciarSesionDev()
       cy.get(idCurso).click();
       cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
-      
+
       cy.intercept({
         method: "POST",
         url: "/api/cursos/profesores/infogral/carpetas"
@@ -167,9 +167,103 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.get("#envio").click();
 
-      cy.contains(nuevoTextoNombre).should("exist");
-      cy.contains(nuevoTextoDesc).should("exist");
+      cy.wait('@reqAgregarTexto');
+
+      cy.get("li[id^=Archivo_]")
+        .first()
+        .then(($el) => {
+          const id = $el.attr("id");
+
+           cy.get(
+             "#" +
+               id +
+               " > .media > .contenido-infogral > .media-heading > strong"
+           ).should("have.text", nuevoTextoNombre);
+
+           cy.get("#" + id + "> .media > .contenido-infogral > p.m-0").should(
+             "have.text",
+             nuevoTextoDesc
+           );
+        });
     });
+
+    it("Profesor: Editar texto/html / Información general", () => {
+      const nuevoNombre = "Horario de clase editado";
+      const nuevaDesc = "Presencial editado";
+      
+      cy.get("li[id^=Archivo_]")
+        .first()
+        .then(($el) => {
+          const id = $el.attr("id");
+
+          cy.get(
+            "li[id^=Archivo_] .media > .media-body > .descarga > .fa"
+          )
+            .first()
+            .click();
+
+          cy.get("#premodif").click();
+
+          cy.get("#titulo")
+            .clear()
+            .type(nuevoNombre)
+            .should("have.value", nuevoNombre);
+
+          cy.get(":nth-child(3) > .form-control")
+            .clear()
+            .type(nuevaDesc)
+            .should("have.value", nuevaDesc);
+
+          cy.get("iframe.cke_wysiwyg_frame").then(function ($iframe) {
+            const $body = $iframe.contents().find("body");
+            //console.log($body);
+            cy.wrap($body[0])
+              .clear()
+              .type(
+                "The JWT’s signature is a combination of three things:" +
+                  "<ul><li>the JWT’s header</li>" +
+                  "<li>the JWT’s payload</li>" +
+                  "<li>a secret value</li></ul>"
+              );
+          });
+
+          cy.get("#envio").click();
+
+          cy.wait("@reqEditarTexto");
+
+          cy.get(
+            "#" + id + " > .media > .contenido-infogral > .media-heading > strong"
+          )
+            .should('have.text', nuevoNombre);
+
+          cy.get(
+            "#" + id + "> .media > .contenido-infogral > p.m-0"
+          )
+            .should('have.text', nuevaDesc);
+        });
+    });
+
+     it("Profesor: Eliminar texto/html / Informacion general", () => {
+       cy.get("li[id^=Archivo_]")
+         .first()
+         .then(($el) => {
+           const id = $el.attr("id");
+
+           cy.get("li[id^=Archivo_] .media > .media-body > .descarga > .fa")
+             .first()
+             .click();
+
+           cy.get("#menus > :nth-child(3) > .btn").click();
+
+           cy.get(
+             ".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
+           ).click();
+
+           cy.wait("@reqEliminarTexto");
+
+           cy.get("#" + id).should("not.exist");
+         });
+     });
 
     it("Profesor: Nuevo adjunto / Información general", () => {
       const nuevoAdjuntoNombre = "Nombre test";
