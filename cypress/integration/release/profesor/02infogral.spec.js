@@ -7,13 +7,18 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
       cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
       
       cy.intercept({
+        method: "POST",
+        url: "/api/cursos/profesores/infogral/carpetas"
+      }).as("reqAgregarCarpeta");
+      
+      cy.intercept({
         method: "PUT",
-        url: "/api/cursos/profesores/carpetas",
+        url: "/api/cursos/profesores/infogral/carpetas",
       }).as("reqEditarCarpeta");
 
       cy.intercept({
         method: "DELETE",
-        url: "/api/cursos/profesores/carpetas",
+        url: "/api/cursos/profesores/infogral/carpetas",
       }).as("reqEliminarCarpeta");
 
       cy.intercept({
