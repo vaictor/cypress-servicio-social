@@ -15,6 +15,21 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
         method: "DELETE",
         url: "/api/cursos/profesores/carpetas",
       }).as("reqEliminarCarpeta");
+
+      cy.intercept({
+        method: "POST",
+        url: "/api/cursos/profesores/infogral/info_general",
+      }).as("reqAgregarTexto");
+
+      cy.intercept({
+        method: "PUT",
+        url: "/api/cursos/profesores/infogral/info_general"
+      }).as("reqEditarTexto");
+
+      cy.intercept({
+        method: "DELETE",
+        url: "/api/cursos/profesores/infogral/info_general",
+      }).as("reqEliminarTexto");
     })
 
     it("Profesor: Nueva carpeta / Información general", () => {
