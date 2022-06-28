@@ -59,7 +59,21 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.get('#modal-submit').click();
 
-      cy.contains(nuevaCarpetaNombre);
+      cy.wait('@reqAgregarCarpeta');
+
+      cy.get('li[class^="folder"]')
+        .first()
+        .then(($el) => {
+          const id = $el.attr("id");
+          cy.get("#" + id + " strong")
+            .should("have.text", nuevaCarpetaNombre);
+
+          cy.get("#" + id + " p.m-0")
+          .should(
+            "have.text",
+            nuevaCarpetaDescripcion
+          );
+        })
     });
 
     it("Profesor: Editar carpeta / Informacion general", () => {
@@ -86,7 +100,18 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.wait("@reqEditarCarpeta");
 
-      cy.contains(carpetaEditarNuevoNombre);
+      cy.get('li[class^="folder"]')
+        .first()
+        .then(($el) => {
+          const id = $el.attr("id");
+          cy.get("#" + id + " strong")
+            .should("have.text", carpetaEditarNuevoNombre);
+
+          cy.get("#" + id + " p.m-0").should(
+            "have.text",
+            carpetaEditarNuevaDesc
+          );
+        })
     });
 
     it("Profesor: Eliminar carpeta / Informacion general", () => {
