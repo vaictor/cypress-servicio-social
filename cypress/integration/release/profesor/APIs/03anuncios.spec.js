@@ -4,7 +4,7 @@ describe("RELEASE: API anuncios", () => {
 
         cy.request({
             method: 'GET',
-            url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/anuncios',
+            url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/anuncios/',
             headers: {
               'content-type': 'application/json',
               'Authorization': Cypress.env('jwtToken')
@@ -13,8 +13,9 @@ describe("RELEASE: API anuncios", () => {
 
           cy.get('@peticionApi').then(respuesta => {
               expect(respuesta.status).to.eq(200);
-              //cy.log(respuesta.body.error);
+              cy.log(respuesta.body.message);
               expect(respuesta.body.error).to.be.false; 
+              cy.wrap(respuesta.body.message).should('eq','OK');
               
           }); //get
   
@@ -25,7 +26,7 @@ describe("RELEASE: API anuncios", () => {
 
         cy.request({
             method: 'GET',
-            url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/usuario/1/actividades',
+            url: Cypress.env('devUrl')+'api/cursos/profesores/anuncios/curso/10419/usuario/1/actividades/',
             headers: {
               'content-type': 'application/json',
               'Authorization': Cypress.env('jwtToken')
