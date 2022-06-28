@@ -14,7 +14,6 @@ describe("RELEASE: API material", () => {
           cy.get('@peticionApi').then(respuesta => {
               expect(respuesta.status).to.eq(200);
               expect(respuesta.body.error).to.be.false; 
-              //cy.log(todos.body.error);
           }); //get
   
       }); // it
@@ -33,7 +32,6 @@ describe("RELEASE: API material", () => {
         cy.get('@peticionApi').then(respuesta => {
             expect(respuesta.status).to.eq(200);
             expect(respuesta.body.error).to.be.false; 
-            //cy.log(todos.body.error);
         }); //get
 
     }); // it
@@ -53,7 +51,6 @@ describe("RELEASE: API material", () => {
         cy.get('@peticionApi').then(respuesta => {
             expect(respuesta.status).to.eq(200);
             expect(respuesta.body.error).to.be.false; 
-            //cy.log(todos.body.error);
         }); //get
 
     }); // it
