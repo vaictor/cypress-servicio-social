@@ -1,40 +1,48 @@
 describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
-    beforeEach(() => {
-        cy.iniciarSesionDev()
+  beforeEach(() => {
+      cy.iniciarSesionDev()
+
+  })
+  
+  const arrayCursos = Cypress.env('arrayCursos');
+  arrayCursos.forEach(elem => {
+    it('Alumno: Anuncios en educ / Comprobar que haya texto', () => {
+
+      cy.intercept({
+        method: "GET",
+        url: `/api/cursos/profesores/anuncios/curso/${elem}/anuncios/`,
+      }).as("reqGetAnuncios");
+
+      cy.get(`#${elem}`)
+      .click()
+
+      cy.get('li').contains('Anuncios')
+      .click()
+
+      cy.wait("@reqGetAnuncios")
+
+      cy.get('.anuncio')
+      .invoke('text')
+      .should('have.length.gt', 0)
+
+      console.log("Termina de comprobar que haya un elemento");
     })
-    
-    const arrayCursos = Cypress.env('arrayCursos');
-    arrayCursos.forEach(elem => {
-        it('Alumno: Anuncios en educ / Comprobar que haya texto', () => {
 
-            cy.get(`#${elem}`)
-            .click()
+  it("Alumno: Anuncios en educ / Encontrar que no hay elementos", () => {
 
-            cy.get('li').contains('Anuncios')
-            .click()
+      cy.get(`#${elem}`)
+        .click()
 
-            cy.get('.anuncio').invoke('text').should('have.length.gt', 0)  // gt == greater than
+      cy.visit(Cypress.env('devUrl')+"alumno/anuncios/index.php");
 
-            cy.wait(1000)
+      cy.wait(500)
 
-            console.log("Termina de comprobar que haya un elemento");
-        })
+      cy.get(".alert")
+        .contains("este curso no cuenta con información en este apartado")
+        .should("exist");
 
-        // Caso de prueba para Anuncios del Alumno
-    it("Alumno: Anuncios en educ / Encontrar que no hay elementos", () => {
-        cy.iniciarSesionDev();
-  
-        cy.get(`#${elem}`)
-          .click()
-  
-        cy.visit(Cypress.env('devUrl')+"alumno/anuncios/index.php");
-  
-        cy.get(".alert")
-          .contains("este curso no cuenta con información en este apartado")
-          .should("exist");
-  
-        console.log("Termina de comprobar que no haya elementos");
-      });
-    })
+      console.log("Termina de comprobar que no haya elementos");
+    });
+  })
 })

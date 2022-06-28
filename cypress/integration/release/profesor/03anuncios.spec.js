@@ -2,6 +2,21 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+        cy.intercept({
+            method: "POST",
+            url: "/api/cursos/profesores/anuncios/anuncios",
+          }).as("reqCrearAnuncio");
+
+          cy.intercept({
+            method: "PUT",
+            url: "/api/cursos/profesores/anuncios/anuncios",
+          }).as("reqEditarAnuncio");
+
+          cy.intercept({
+            method: "DELETE",
+            url: "/api/cursos/profesores/anuncios/anuncios",
+          }).as("reqEliminarAnuncio");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
@@ -25,7 +40,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#'+elem)
             .click()
 
-            cy.get('li').contains('Anuncios')
+            cy.get('li')
+            .contains('Anuncios')
             .click()
 
             cy.get("#btnGroupDrop1")
@@ -37,34 +53,31 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get("#titulo")
             .type(titulo)
 
-            cy.get('iframe.cke_wysiwyg_frame')  // "cke_wysiwyg_frame" class is used here
+            cy.get('iframe.cke_wysiwyg_frame')  
                 .then($frameWindow => {
 
-                    const win = cy.state('window'); // grab the window Cypress is testing
-                    const ckEditor = win.CKEDITOR;  // CKEditor has added itself to the window
-                    const instances = ckEditor.instances;  // can be multiple editors on the page
+                    const win = cy.state('window'); 
+                    const ckEditor = win.CKEDITOR;  
+                    const instances = ckEditor.instances;  
 
                     const myEditor = Object.values(instances)
-                    .filter(instance => instance.id === 'cke_1')[0]; // select the instance by id
+                    .filter(instance => instance.id === 'cke_1')[0];
 
-                    // Tiempo para que carga del editor finalice
-                    // eslint-disable-next-line cypress/no-unnecessary-waiting
-                    cy.wait(2500)
+                    cy.wait(1000)
                     
                     myEditor.setData(anuncio); 
-
                 })
 
 
             cy.get('#envio')
             .click()
         
-            cy.wait(1000)
-
-            console.log('Termina de crear un elemento')
+            cy.wait("@reqCrearAnuncio")
 
             cy.contains(titulo)
             .should("exist")
+
+            console.log('Termina de crear un elemento')  
 
         })
 
@@ -72,7 +85,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#'+elem)
             .click()
 
-              cy.get('label').then((id) => {
+            cy.get('label').then((id) => {
                 console.log(id)
                 console.log(id[0].id)
                 let array=[]
@@ -86,7 +99,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
                 var m = Math.max(...array);
                 console.log(m)
                 cy.get("#label" + m).click({force: true})
-              })
+            })
 
             cy.wait(1000)
 
@@ -96,19 +109,17 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get("#titulo").clear()
             .type(titulo+" editado")
 
-            cy.get('iframe.cke_wysiwyg_frame') // "cke_wysiwyg_frame" class is used here
+            cy.get('iframe.cke_wysiwyg_frame')
                 .then($frameWindow => {
 
-                    const win = cy.state('window'); // grab the window Cypress is testing
-                    const ckEditor = win.CKEDITOR;  // CKEditor has added itself to the window
-                    const instances = ckEditor.instances;  // can be multiple editors on the page
+                    const win = cy.state('window');
+                    const ckEditor = win.CKEDITOR; 
+                    const instances = ckEditor.instances; 
 
                     const myEditor = Object.values(instances)
-                    .filter(instance => instance.id === 'cke_1')[0]; // select the instance by id
+                    .filter(instance => instance.id === 'cke_1')[0];
 
-                    // Tiempo para que carga del editor finalice
-                    // eslint-disable-next-line cypress/no-unnecessary-waiting
-                    cy.wait(2500)
+                    cy.wait(1500)
                     
                     myEditor.setData("Editado " +anuncio + " Editado"); 
 
@@ -118,7 +129,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('#envio')
             .click()
         
-            cy.wait(1000)
+            cy.wait("@reqEditarAnuncio")
+            
             console.log('Termina de Editar un elemento')
             
         })
@@ -130,43 +142,43 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Anuncios')
             .click()
 
-            cy.get('.anuncio').invoke('text').should('have.length.gt', 0)  // gt == greater than
+            cy.get('.anuncio')
+            .invoke('text')
+            .should('have.length.gt', 0)
         
             console.log('Termina de comprobar que haya un elemento')
         })
-
 
         it("Alumno: Anuncios en educ / Eliminar un anuncio", () => {
             cy.get('#'+elem)
             .click()
 
-              cy.get('label').then((id) => {
-                console.log(id)
-                console.log(id[0].id)
-                let array=[]
-                for(let i =0; i<id.length ;i++ ){
-                    let label = id[i].id
-                    let label2 = label.substring(label.length - 5, label.length);
-                    console.log(label2)
-                    array.push(label2)
-                }
-                console.log(array)
-                var m = Math.max(...array);
-                console.log(m)
-                cy.get("#label" + m).click({force: true})
-              })
+            cy.get('label').then((id) => {
+            console.log(id)
+            console.log(id[0].id)
+            let array=[]
+            for(let i =0; i<id.length ;i++ ){
+                let label = id[i].id
+                let label2 = label.substring(label.length - 5, label.length);
+                console.log(label2)
+                array.push(label2)
+            }
+            console.log(array)
+            var m = Math.max(...array);
+            console.log(m)
+            cy.get("#label" + m).click({force: true})
+            })
 
-
-            cy.wait(1000)
+            cy.wait(500)
 
             cy.get('#menus > :nth-child(3) > .btn')
             .click()
             
-            cy.wait(1000)
+            cy.wait(500)
             cy.get(".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary")
             .click()
 
-            cy.wait(1000)
+            cy.wait("@reqEliminarAnuncio")
             console.log('Termina de eliminar un elemento')
             
         })
@@ -177,7 +189,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get(`#${elem}`)
               .click()
       
-            cy.get('li').contains('Anuncios')
+            cy.get('li')
+            .contains('Anuncios')
             .click()
       
             cy.get(".alert")
