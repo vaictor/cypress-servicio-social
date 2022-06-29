@@ -4,6 +4,21 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+          cy.intercept({
+            method: "GET",
+            url: "/api/cursos/alumnos/curso/"+Cypress.env('arrayCursos')+"/profesores",
+          }).as("reqGetProfesores");
+
+          cy.intercept({
+            method: "PUT",
+            url: "/api/cursos/profesores/profesores",
+          }).as("reqModificarTexto");
+
+          cy.intercept({
+            method: "POST",
+            url: "/api/cursos/profesores/profesores",
+          }).as("reqCambiarFoto");
     })
     
     const arrayCursos = Cypress.env('arrayCursos');
@@ -12,13 +27,15 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             
             const nombramiento = "Profesor por horas de la Facultad de Telemática"
             const  institucion = "Universidad de Colima"
-            const resena = "*Análisis, diseño y desarrollo de software \n*Gestión de proyectos de software \n*Profesor por horas \n*Curso 9285"
+            const resena = "*Análisis, diseño y desarrollo de software \n*Gestión de proyectos de software \n*Profesor por horas"
 
             cy.get('#'+elem)
             .click()
 
             cy.get('li').contains('Profesores')
             .click()
+
+            cy.wait("@reqGetProfesores")
 
             cy.get('#btnEditar')
             .click()
@@ -45,7 +62,16 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('button').contains('Guardar')
             .click()
 
-            cy.wait(1000)
+            cy.wait("@reqModificarTexto")
+            cy.wait("@reqCambiarFoto")
+
+            cy.get('#regresar')
+            .click()
+
+            cy.get('button').contains('Guardar')
+            .click()
+
+            cy.wait("@reqModificarTexto")
 
             console.log('Termina de editar')
         
