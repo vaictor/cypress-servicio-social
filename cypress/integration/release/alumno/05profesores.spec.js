@@ -2,6 +2,16 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+        cy.intercept({
+            method: "GET",
+            url: "/api/cursos/alumnos/curso/"+Cypress.env('arrayCursos')+"/profesores",
+          }).as("reqGetProfesores");
+
+          cy.intercept({
+            method: "POST",
+            url: "/api/cursos/alumnos/profesores",
+          }).as("reqEnviarCorreo");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
@@ -18,6 +28,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Profesores')
             .click()
 
+            cy.wait("@reqGetProfesores")
+
             cy.get('.btn-info').first()
             .click()
 
@@ -31,6 +43,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .should('be.visible')
             .click()
 
+            cy.wait("@reqEnviarCorreo")
+
             cy.get('.bootbox-body')
             cy.contains(confiMensaje).should("exist")
 
@@ -38,6 +52,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.get('.btn-info').contains('Aceptar')
             .click()
+
+            cy.wait("@reqGetProfesores")
 
             console.log('Termina el contacto con el profesor')
         })

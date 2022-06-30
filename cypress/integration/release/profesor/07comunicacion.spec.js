@@ -32,6 +32,9 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
     const arrayCursos = Cypress.env('arrayCursos');
     arrayCursos.forEach(elem => {
 
+      const mensajeNombre = "Foro cypress prueba"
+      const mensajeDescripcion = "Descripcion prueba cypress"
+
         it('Profesor: Comunicación en educ / Crear un foro', () => {
 
             cy.wait(3000)
@@ -51,7 +54,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre')
-            .type("Foro cypress prueba")
+            .type(mensajeNombre)
 
             cy.get('#tipoNuevo')
             .select('Totalmente abierto').should('have.value', '1')
@@ -60,7 +63,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .select('Solo a los que pertenecen al equipo').should('have.value', '1')
 
             cy.get('.note-editable')
-            .type("Descripcion prueba cypress")
+            .type(mensajeDescripcion)
 
             cy.get('#mover')
             .click()
@@ -116,10 +119,10 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre').clear()
-            .type('Foro cypress prueba editado')
+            .type(mensajeNombre+" editado")
 
             cy.get('.note-editable').clear()
-            .type("Descripcion prueba cypress editado")
+            .type(mensajeDescripcion+" editado")
 
             cy.get('#mover')
             .click()
@@ -183,7 +186,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('#txt_nombre')
-            .type("Foro cypress prueba")
+            .type(mensajeNombre)
 
             cy.get('#tipoNuevo')
             .select('Totalmente abierto').should('have.value', '1')
@@ -192,7 +195,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .select('Solo a los que pertenecen al equipo').should('have.value', '1')
 
             cy.get('.note-editable')
-            .type("Descripcion prueba cypress")
+            .type(mensajeDescripcion)
 
             cy.get('#mover')
             .click()
