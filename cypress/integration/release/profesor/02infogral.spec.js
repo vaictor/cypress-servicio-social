@@ -8,9 +8,9 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.intercept({
         method: "POST",
-        url: "/api/cursos/profesores/infogral/carpetas"
+        url: "/api/cursos/profesores/infogral/carpetas",
       }).as("reqAgregarCarpeta");
-      
+
       cy.intercept({
         method: "PUT",
         url: "/api/cursos/profesores/infogral/carpetas",
@@ -28,7 +28,7 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.intercept({
         method: "PUT",
-        url: "/api/cursos/profesores/infogral/info_general"
+        url: "/api/cursos/profesores/infogral/info_general",
       }).as("reqEditarTexto");
 
       cy.intercept({
@@ -365,6 +365,47 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
           cy.get("#" + id).should("not.exist");
         });
     });
+
+    it("Profesor: Nuevo adjunto (pdf) / Información general", () => {
+      const nuevoAdjuntoNombre = "PDF test";
+      const nuevoAdjuntoDesc = "PDF test descripción";
+
+      cy.get("#btnGroupDrop1").click();
+
+      cy.get(".open > .dropdown-menu > :nth-child(3) > a").click();
+
+      cy.get("#file_upload").attachFile(
+        "Principios de seguridad de desarrollo de software.pdf"
+      );
+
+      cy.get("#txt_nombre_adjunto")
+        .type(nuevoAdjuntoNombre)
+        .should("have.value", nuevoAdjuntoNombre);
+
+      cy.get("#txt_descriptor_adjunto")
+        .type(nuevoAdjuntoDesc)
+        .should("have.value", nuevoAdjuntoDesc);
+
+      cy.get("#lst_carpeta_destino_adjunto")
+        .select("Sin carpeta")
+        .should("have.value", "raiz");
+
+      cy.get("#modal-submit").click();
+
+      cy.wait("@reqAgregarTexto");
+
+      cy.contains(nuevoAdjuntoNombre).should("exist");
+      cy.contains(nuevoAdjuntoDesc).should("exist");
+
+      cy.contains(nuevoAdjuntoDesc)
+        .first()
+        .siblings()
+        .eq(2)
+        .children()
+        .click()
+        .then(() => {
+          cy.get(".modal.fade.bs-example-modal-lg.v_pdf").should("be.visible");
+        })
     });
 
 })
