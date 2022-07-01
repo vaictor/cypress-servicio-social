@@ -2,6 +2,26 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+        cy.intercept({
+          method: "GET",
+          url: "/api/cursos/profesores/mde/curso/"+Cypress.env('arrayCursos')+"/materiales",
+        }).as("reqGetMaterial");
+
+        cy.intercept({
+          method: "POST",
+          url: "/curso/mde/includes/material.controller.php",
+        }).as("reqCrearMaterial");
+
+        cy.intercept({
+          method: "POST",
+          url: "/curso/mde/includes/estadistica_eliminar.php",
+        }).as("reqEliminar");
+
+        cy.intercept({
+          method: "DELETE",
+          url: "/api/cursos/profesores/mde/materiales",
+        }).as("reqEliminarMaterial");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
