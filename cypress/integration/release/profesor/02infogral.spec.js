@@ -1,8 +1,8 @@
 describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
   
     beforeEach(() => {
-      const idCurso = '#9896';
-      cy.iniciarSesionDev()
+      const idCurso = "#9896";
+      cy.iniciarSesionDev();
       cy.get(idCurso).click();
       cy.visit(Cypress.env("devUrl") + "curso/infogral/index_admon.php");
 
@@ -265,7 +265,7 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
          });
      });
 
-    it("Profesor: Nuevo adjunto / Información general", () => {
+    it("Profesor: Nuevo adjunto (imagen) / Información general", () => {
       const nuevoAdjuntoNombre = "Nombre test";
       const nuevoAdjuntoDesc = "Adjunto test descripción";
 
@@ -289,10 +289,82 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
       cy.get("#modal-submit").click();
 
+      cy.wait('@reqAgregarTexto');
+
       cy.contains(nuevoAdjuntoNombre).should("exist");
       cy.contains(nuevoAdjuntoDesc).should("exist");
-      cy.wait(1000);
-      cy.contains(nuevoAdjuntoDesc).first().siblings().eq(2).children().click()
+      
+      cy.contains(nuevoAdjuntoDesc)
+        .first()
+        .siblings()
+        .eq(2)
+        .children()
+        .then(link => {
+          cy.request(link.prop("href")).its("status").should("eq", 200);
+        });
+    });
+
+    it("Profesor: Editar adjunto / Información general", () => {
+      const adjuntoEditadoNombre = "Adjunto editado nombre";
+      const adjuntoEditadoDesc = "Adjunto editado descripcion";
+      
+      cy.get("li[id^=Archivo_]")
+        .last()
+        .then($el => {
+          const id = $el.attr("id");
+
+          cy.get("li[id^=Archivo_] .descarga").last().click();
+
+          cy.get("#premodif").click();
+
+          cy.get("#txt_nombre_adjunto_modificar")
+            .clear()
+            .type(adjuntoEditadoNombre)
+            .should('have.value', adjuntoEditadoNombre);
+          
+          cy.get("#txt_descriptor_adjunto_modificar")
+            .clear()
+            .type(adjuntoEditadoDesc)
+            .should("have.value", adjuntoEditadoDesc);
+          
+          cy.get("#modal-submit").click();
+
+          cy.wait('@reqEditarTexto');
+
+          cy.get(
+            "#" +
+              id +
+              "> .media > .contenido-infogral > .media-heading > strong"
+          ).should('have.text', adjuntoEditadoNombre);
+
+          cy.get("#" + id + "> .media > .contenido-infogral > p.m-0").should(
+            "have.text",
+            adjuntoEditadoDesc
+          );
+        })
+    });
+
+    it("Profesor: Eliminar adjunto / Información general", () => {
+      cy.get("li[id^=Archivo_]")
+        .last()
+        .then(($el) => {
+          const id = $el.attr("id");
+
+          cy.get("li[id^=Archivo_] .descarga")
+            .last()
+            .click();
+
+          cy.get("#menus > :nth-child(3) > .btn").click();
+
+          cy.get(
+            ".bootbox > .modal-dialog > .modal-content > .modal-footer > .btn-primary"
+          ).click();
+
+          cy.wait("@reqEliminarTexto");
+
+          cy.get("#" + id).should("not.exist");
+        });
+    });
     });
 
 })
