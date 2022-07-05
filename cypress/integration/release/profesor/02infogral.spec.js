@@ -408,4 +408,131 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
         })
     });
 
+    it("Profesor: Nuevo adjunto (docx) / Información general", () => {
+      const nuevoAdjuntoNombre = "DOCX test";
+      const nuevoAdjuntoDesc = "DOCX test descripción";
+
+      cy.get("#btnGroupDrop1").click();
+
+      cy.get(".open > .dropdown-menu > :nth-child(3) > a").click();
+
+      cy.get("#file_upload").attachFile(
+        "Tarea 2. Alias y links.docx"
+      );
+
+      cy.get("#txt_nombre_adjunto")
+        .type(nuevoAdjuntoNombre)
+        .should("have.value", nuevoAdjuntoNombre);
+
+      cy.get("#txt_descriptor_adjunto")
+        .type(nuevoAdjuntoDesc)
+        .should("have.value", nuevoAdjuntoDesc);
+
+      cy.get("#lst_carpeta_destino_adjunto")
+        .select("Sin carpeta")
+        .should("have.value", "raiz");
+
+      cy.get("#modal-submit").click();
+
+      cy.wait("@reqAgregarTexto");
+
+      cy.contains(nuevoAdjuntoNombre).should("exist");
+      cy.contains(nuevoAdjuntoDesc).should("exist");
+
+      cy.contains(nuevoAdjuntoDesc)
+        .first()
+        .siblings()
+        .eq(2)
+        .children()
+        .then((link) => {
+          const href = link.prop("href")
+          const url = href.slice(href.lastIndexOf("http"));
+          cy.request(url).its("status").should("eq", 200);
+        });
+    });
+
+    it("Profesor: Nuevo adjunto (xlsx) / Información general", () => {
+      const nuevoAdjuntoNombre = "XLSX test";
+      const nuevoAdjuntoDesc = "XLSX test descripción";
+
+      cy.get("#btnGroupDrop1").click();
+
+      cy.get(".open > .dropdown-menu > :nth-child(3) > a").click();
+
+      cy.get("#file_upload").attachFile(
+        "prueba.xlsx"
+      );
+
+      cy.get("#txt_nombre_adjunto")
+        .type(nuevoAdjuntoNombre)
+        .should("have.value", nuevoAdjuntoNombre);
+
+      cy.get("#txt_descriptor_adjunto")
+        .type(nuevoAdjuntoDesc)
+        .should("have.value", nuevoAdjuntoDesc);
+
+      cy.get("#lst_carpeta_destino_adjunto")
+        .select("Sin carpeta")
+        .should("have.value", "raiz");
+
+      cy.get("#modal-submit").click();
+
+      cy.wait("@reqAgregarTexto");
+
+      cy.contains(nuevoAdjuntoNombre).should("exist");
+      cy.contains(nuevoAdjuntoDesc).should("exist");
+
+      cy.contains(nuevoAdjuntoDesc)
+        .first()
+        .siblings()
+        .eq(2)
+        .children()
+        .then((link) => {
+          const href = link.prop("href")
+          const url = href.slice(href.lastIndexOf("http"));
+          cy.request(url).its("status").should("eq", 200);
+        });
+    });
+
+    it("Profesor: Nuevo adjunto (pptx) / Información general", () => {
+      const nuevoAdjuntoNombre = "PPTX test";
+      const nuevoAdjuntoDesc = "PPTX test descripción";
+
+      cy.get("#btnGroupDrop1").click();
+
+      cy.get(".open > .dropdown-menu > :nth-child(3) > a").click();
+
+      cy.get("#file_upload").attachFile("presentacion.pptx");
+
+      cy.get("#txt_nombre_adjunto")
+        .type(nuevoAdjuntoNombre)
+        .should("have.value", nuevoAdjuntoNombre);
+
+      cy.get("#txt_descriptor_adjunto")
+        .type(nuevoAdjuntoDesc)
+        .should("have.value", nuevoAdjuntoDesc);
+
+      cy.get("#lst_carpeta_destino_adjunto")
+        .select("Sin carpeta")
+        .should("have.value", "raiz");
+
+      cy.get("#modal-submit").click();
+
+      cy.wait("@reqAgregarTexto");
+
+      cy.contains(nuevoAdjuntoNombre).should("exist");
+      cy.contains(nuevoAdjuntoDesc).should("exist");
+
+      cy.contains(nuevoAdjuntoDesc)
+        .first()
+        .siblings()
+        .eq(2)
+        .children()
+        .then((link) => {
+          const href = link.prop("href");
+          const url = href.slice(href.lastIndexOf("http"));
+          cy.request(url).its("status").should("eq", 200);
+        });
+    });
+
 })
