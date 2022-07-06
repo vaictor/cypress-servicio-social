@@ -29,7 +29,8 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     .click();
 
     cy.get("#criterioss")
-    .type(criterio);
+    .type(criterio)
+    .should("have.value", criterio)
 
     cy.get("#valores")
     .type("9");
@@ -61,10 +62,12 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     .click()
 
     cy.get("#val_criterio").clear()
-    .type(criterio+"Editado");
+    .type(criterio+"Editado")
+    .should("have.value", criterio +"Editado");
 
     cy.get("#valvalor_def").clear()
-    .type("10");
+    .type("10")
+    .should("have.value", "10");
 
     cy.get("#btn_salvarM")
     .click()
@@ -76,7 +79,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     console.log("Termina Editar criterio")
   })
 
-  it.skip("Profesor: Calificaciones en educ / Poner calificacion", () =>{
+  it("Profesor: Calificaciones en educ / Poner calificacion", () =>{
     cy.get("#10459")
     .click();
 
@@ -96,7 +99,7 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     console.log("Termina Poner calificacion aleatoria")
   })
 
-  it.skip("Profesor: Calificaciones en educ / Notificar al primer alumno", () =>{
+  it("Profesor: Calificaciones en educ / Notificar al primer alumno", () =>{
     cy.get("#10459")
     .click();
 
@@ -169,7 +172,8 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     .select(1)
 
     cy.get("#valorImp")
-    .type("9");
+    .type("9")
+    .should("have.value", "9");;
 
     cy.get("#btn_salvarI")
     .click()
@@ -195,7 +199,8 @@ describe("RELEASE: Pruebas del alumno de la plataforma educ", () => {
     .click()
 
     cy.get("#valvalor_def").clear()
-    .type("10");
+    .type("10")
+    .should("have.value", "10");;
 
     cy.get("#btn_salvarM")
     .click()

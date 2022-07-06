@@ -36,7 +36,6 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
         </div>`
 
         it('Profesor: Anuncios en educ / Crear nuevo Anuncio', () => {
-            
             cy.get('#'+elem)
             .click()
 
@@ -52,6 +51,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             
             cy.get("#titulo")
             .type(titulo)
+            .should("have.value", titulo);
 
             cy.get('iframe.cke_wysiwyg_frame')  
                 .then($frameWindow => {
@@ -108,6 +108,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
             cy.get("#titulo").clear()
             .type(titulo+" editado")
+            .should("have.value", titulo +" editado");
 
             cy.get('iframe.cke_wysiwyg_frame')
                 .then($frameWindow => {
@@ -154,19 +155,19 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .click()
 
             cy.get('label').then((id) => {
-            console.log(id)
-            console.log(id[0].id)
-            let array=[]
-            for(let i =0; i<id.length ;i++ ){
-                let label = id[i].id
-                let label2 = label.substring(label.length - 5, label.length);
-                console.log(label2)
-                array.push(label2)
-            }
-            console.log(array)
-            var m = Math.max(...array);
-            console.log(m)
-            cy.get("#label" + m).click({force: true})
+                console.log(id)
+                console.log(id[0].id)
+                let array=[]
+                for(let i =0; i<id.length ;i++ ){
+                    let label = id[i].id
+                    let label2 = label.substring(label.length - 5, label.length);
+                    console.log(label2)
+                    array.push(label2)
+                }
+                console.log(array)
+                var m = Math.max(...array);
+                console.log(m)
+                cy.get("#label" + m).click({force: true})
             })
 
             cy.wait(500)
