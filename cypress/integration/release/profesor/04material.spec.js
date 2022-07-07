@@ -62,7 +62,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           cy.get('#modal-submit')
           .click()
 
-          cy.wait("@reqCrearMaterial")
+          cy.wait(1000)
           
           console.log('Termina de crear la carpeta')
       })
@@ -145,17 +145,19 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
-            cy.get('label').then((id) => {
-              let array=[]
-              for(let i =0; i<id.length ;i++ ){
-                  let label = id[i].id
-                  let label2 = label.substring(label.length - 5, label.length);
-                  array.push(label2)
-              }
-              var m = Math.max(...array);
-              cy.get("#lbl1" + m)
-              .click()
-            })
+          cy.wait(3000)
+
+          cy.get('label').then((id) => {
+            let array=[]
+            for(let i =0; i<id.length ;i++ ){
+                let label = id[i].id
+                let label2 = label.substring(label.length - 5, label.length);
+                array.push(label2)
+            }
+            var m = Math.max(...array);
+            cy.get("#lbl1" + m)
+            .click()
+          })
 
           cy.wait(1000)
 
@@ -198,6 +200,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
             cy.get('label').then((id) => {
               let array=[]
@@ -281,6 +285,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -336,6 +342,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
             cy.get('label').then((id) => {
               let array=[]
@@ -418,6 +426,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -465,7 +475,6 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           console.log('Termina de comprobar que haya un elemento')
       })
 
-
       it("Profesor: Material de estudio en educ / Eliminar un enlace fuera de la carpeta", () => {
           cy.get('#'+elem)
           .click()
@@ -474,6 +483,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
             cy.get('label').then((id) => {
               let array=[]
@@ -556,6 +567,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -611,6 +624,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
           
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
             cy.get('label').then((id) => {
               let array=[]
@@ -693,6 +708,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -748,6 +765,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
             cy.get('label').then((id) => {
               let array=[]
@@ -829,6 +848,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -885,6 +906,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
           cy.wait("@reqGetMaterial")
 
+          cy.wait(3000)
+
             cy.get('label').then((id) => {
               let array=[]
               for(let i =0; i<id.length ;i++ ){
@@ -923,6 +946,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
           cy.get("#lbl1" + idCarpeta)
           .click()
@@ -970,6 +995,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
           .click()
 
           cy.wait("@reqGetMaterial")
+
+          cy.wait(3000)
 
           cy.get("#lbl1" + idCarpeta)
           .click()

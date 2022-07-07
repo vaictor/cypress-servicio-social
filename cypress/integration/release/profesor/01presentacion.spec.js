@@ -2,6 +2,16 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
 
     beforeEach(() => {
         cy.iniciarSesionDev()
+
+        cy.intercept({
+            method: "GET",
+            url: "/api/cursos/profesores/curso/"+Cypress.env('arrayCursos')+"/presentacion",
+          }).as("reqGetPresentacion");
+
+          cy.intercept({
+            method: "PUT",
+            url: "/api/cursos/profesores/presentacion",
+          }).as("reqModificarPresentacion");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
@@ -24,11 +34,13 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
                 <p><img alt="" src="https://concepto.de/wp-content/uploads/2018/04/base-de-datos-min-e1523470739502.jpg" style="width: 800px; height: 414px;" /></p>
                 </div>`
 
-            cy.get('#'+elem)
-            .click()
+                cy.get('#'+elem)
+                .click()
             
             cy.get('li').contains('Presentación')
             .click()
+
+            cy.wait("@reqGetPresentacion")
 
             cy.get('button').contains('Modificar')
             .click()
@@ -58,8 +70,12 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
             cy.get('button').contains('Guardar')
             .click()
 
+            cy.wait("@reqModificarPresentacion")
+
             // eslint-disable-next-line cypress/no-unnecessary-waiting
             cy.wait(500)
+
+            cy.wait("@reqGetPresentacion")
             
             cy.get('#presentacion').invoke('text').should('have.length.gt', 0)  // gt == greater than
         })

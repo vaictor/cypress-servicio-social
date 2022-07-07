@@ -1,12 +1,14 @@
 describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
 
-    before(() => {
-       
-    })
 
     beforeEach(() => {
         console.log("Iniciar sesión")
         cy.iniciarSesionDev()
+
+        cy.intercept({
+            method: "GET",
+            url: "/api/cursos/profesores/curso/"+Cypress.env('arrayCursos')+"/presentacion",
+          }).as("reqGetPresentacion");
     })
 
     const arrayCursos = Cypress.env('arrayCursos');
@@ -18,6 +20,8 @@ describe('RELEASE: Pruebas del Alumno de la plataforma educ', () => {
             
             cy.get('li').contains('Presentación')
             .click()
+
+            cy.wait("@reqGetPresentacion")
 
             cy.get('.container').invoke('text').should('have.length.gt', 0)  // gt == greater than
             
