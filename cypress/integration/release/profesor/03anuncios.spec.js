@@ -53,6 +53,8 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             .type(titulo)
             .should("have.value", titulo);
 
+            cy.wait(500)
+
             cy.get('iframe.cke_wysiwyg_frame')  
                 .then($frameWindow => {
 
@@ -68,7 +70,6 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
                     myEditor.setData(anuncio); 
                 })
 
-
             cy.get('#envio')
             .click()
         
@@ -81,9 +82,31 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
 
         })
 
+        it('Profesor: Anuncios en educ / Checar Anuncio en Vista-Alumnos', () => {
+            cy.get('#'+elem)
+            .click()
+
+            cy.get('li')
+            .contains('Anuncios')
+            .click()
+
+            cy.get(':nth-child(5) > .btn')
+            .click()
+            
+            cy.contains(titulo)
+            .should("exist")
+           
+            cy.get('.nav-item > .btn')
+            .click()
+            console.log('Termina Checar Anuncio en Vista-Alumnos')  
+
+        })
+
         it("Alumno: Anuncios en educ / Editar un anuncio", () => {
             cy.get('#'+elem)
             .click()
+
+            cy.wait(500)
 
             cy.get('label').then((id) => {
                 console.log(id)
