@@ -3,11 +3,6 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
     beforeEach(() => {
         cy.iniciarSesionDev()
 
-        cy.intercept({
-            method: "GET",
-            url: "/api/cursos/profesores/curso/"+Cypress.env('arrayCursos')+"/presentacion",
-          }).as("reqGetPresentacion");
-
           cy.intercept({
             method: "PUT",
             url: "/api/cursos/profesores/presentacion",
@@ -40,7 +35,7 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
             cy.get('li').contains('Presentación')
             .click()
 
-            cy.wait("@reqGetPresentacion")
+            cy.wait(500)
 
             cy.get('button').contains('Modificar')
             .click()
@@ -74,9 +69,7 @@ describe('RELEASE: Pruebas del Profesor de la plataforma educ', () => {
 
             // eslint-disable-next-line cypress/no-unnecessary-waiting
             cy.wait(500)
-
-            cy.wait("@reqGetPresentacion")
-            
+   
             cy.get('#presentacion').invoke('text').should('have.length.gt', 0)  // gt == greater than
         })
     })

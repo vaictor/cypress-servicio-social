@@ -6,11 +6,6 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
         cy.iniciarSesionDev()
 
           cy.intercept({
-            method: "GET",
-            url: "/api/cursos/alumnos/curso/"+Cypress.env('arrayCursos')+"/profesores",
-          }).as("reqGetProfesores");
-
-          cy.intercept({
             method: "PUT",
             url: "/api/cursos/profesores/profesores",
           }).as("reqModificarTexto");
@@ -35,7 +30,7 @@ describe('RELEASE: Pruebas del alumno de la plataforma educ', () => {
             cy.get('li').contains('Profesores')
             .click()
 
-            cy.wait("@reqGetProfesores")
+            cy.wait(500)
 
             cy.get('#btnEditar')
             .click()
